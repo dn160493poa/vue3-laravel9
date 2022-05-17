@@ -3,8 +3,8 @@
         <div class="container page">
             <div class="row">
                 <div class="col-md-6 offset-md-3 col-xs-12">
-                    <h1 class="text-xs-center">Sing Up</h1>
-                    <p class="text-xs-center">
+                    <h1 class="text-center">Sing Up</h1>
+                    <p class="text-center">
 <!--                        <router-link :to="{ name: 'login' }">Need an account?</router-link>-->
                     </p>
                     VALIDATION ERRORS
@@ -64,5 +64,7 @@ export default {
 </script>
 
 <style scoped>
-
+    .form-group {
+        margin-bottom: 1rem;
+    }
 </style>
