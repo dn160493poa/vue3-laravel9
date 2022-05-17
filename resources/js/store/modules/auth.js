@@ -1,24 +1,39 @@
 import authApi from './../../api/auth'
 
 const state = {
-    isSubmitting: false
+    isSubmitting: false,
+    currentUser: null,
+    validationErrors: null,
+    isLoggedId: null
 }
 
 const mutations = {
     registerStart(state){
         state.isSubmitting = true
+        state.validationErrors = null
+    },
+    registerSuccess(state, payload){
+        state.isSubmitting = false
+        state.currentUser = payload
+        state.isLoggedId = true
+    },
+    registerFailure(state, payload){
+        state.isSubmitting = false
+        state.validationErrors = payload
     }
 }
 
 const actions = {
     register(context, credentials){
-        return new Promise(() => {
+        return new Promise(resolve => {
+            context.commit('registerStart')
             authApi.register(credentials)
                 .then( res => {
-                    console.log(res)
+                    context.commit('registerSuccess', res.data)
+                    resolve(res.data)
                 })
-                .catch( error => {
-                    console.log('errors: ', error)
+                .catch( res => {
+                    context.commit('registerFailure', res.response.data.errors)
                 })
         })
         // setTimeout(() => {

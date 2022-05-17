@@ -11,25 +11,29 @@
                     <form @submit.prevent="onSubmit">
                         <fieldset class="form-group">
                             <input
+                                v-model="name"
                                 type="text"
                                 class="form-control form-control-lg"
                                 placeholder="UserName">
                         </fieldset>
                         <fieldset class="form-group">
                             <input
+                                v-model="email"
                                 type="text"
                                 class="form-control form-control-lg"
                                 placeholder="Email">
                         </fieldset>
                         <fieldset class="form-group">
                             <input
-                                type="text"
+                                v-model="password"
+                                type="password"
                                 class="form-control form-control-lg"
                                 placeholder="Password">
                         </fieldset>
                         <fieldset class="form-group">
                             <input
-                                type="text"
+                                v-model="password_confirmation"
+                                type="password"
                                 class="form-control form-control-lg"
                                 placeholder="Re-enter password">
                         </fieldset>
@@ -45,6 +49,14 @@
 <script>
 export default {
     name: "McvRegister",
+    data(){
+        return {
+            name: '',
+            email: '',
+            password: '',
+            password_confirmation: ''
+        }
+    },
 
     computed: {
         isSubmitting(){
@@ -54,9 +66,15 @@ export default {
 
     methods:{
         onSubmit(){
-            console.log('ssss')
-            //this.$store.commit('registerStart')
-            this.$store.dispatch('register')
+            this.$store.dispatch('register', {
+                name: this.name,
+                email: this.email,
+                password: this.password,
+                password_confirmation: this.password_confirmation
+            }).then(user => {
+                this.$router.push({ name: 'home' })
+                console.log('success registration', user)
+            })
         }
     }
 

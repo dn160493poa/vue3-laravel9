@@ -19771,8 +19771,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var register = function register(credentials) {
-  return axios__WEBPACK_IMPORTED_MODULE_0___default().post('/users', {
-    user: credentials
+  return axios__WEBPACK_IMPORTED_MODULE_0___default().post('/api/users', {
+    name: credentials.name,
+    email: credentials.email,
+    password: credentials.password,
+    password_confirmation: credentials.password_confirmation
   });
 };
 
@@ -19892,20 +19895,35 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _api_auth__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../api/auth */ "./resources/js/api/auth.js");
 
 var state = {
-  isSubmitting: false
+  isSubmitting: false,
+  currentUser: null,
+  validationErrors: null,
+  isLoggedId: null
 };
 var mutations = {
   registerStart: function registerStart(state) {
     state.isSubmitting = true;
+    state.validationErrors = null;
+  },
+  registerSuccess: function registerSuccess(state, payload) {
+    state.isSubmitting = false;
+    state.currentUser = payload;
+    state.isLoggedId = true;
+  },
+  registerFailure: function registerFailure(state, payload) {
+    state.isSubmitting = false;
+    state.validationErrors = payload;
   }
 };
 var actions = {
   register: function register(context, credentials) {
-    return new Promise(function () {
+    return new Promise(function (resolve) {
+      context.commit('registerStart');
       _api_auth__WEBPACK_IMPORTED_MODULE_0__["default"].register(credentials).then(function (res) {
-        console.log(res);
-      })["catch"](function (error) {
-        console.log('errors: ', error);
+        context.commit('registerSuccess', res.data);
+        resolve(res.data);
+      })["catch"](function (res) {
+        context.commit('registerFailure', res.response.data.errors);
       });
     }); // setTimeout(() => {
     //     context.commit('registerStart')
