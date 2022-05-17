@@ -33,7 +33,8 @@
                                 class="form-control form-control-lg"
                                 placeholder="Re-enter password">
                         </fieldset>
-                        <button class="btn btn-lg btn-success float-end">Sing Up</button>
+                        <button class="btn btn-lg btn-success float-end"
+                                :disabled="isSubmitting">Sing Up</button>
                     </form>
                 </div>
             </div>
@@ -45,9 +46,17 @@
 export default {
     name: "McvRegister",
 
+    computed: {
+        isSubmitting(){
+            return this.$store.state.auth.isSubmitting
+        }
+    },
+
     methods:{
         onSubmit(){
             console.log('ssss')
+            //this.$store.commit('registerStart')
+            this.$store.dispatch('register')
         }
     }
 
