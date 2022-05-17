@@ -25,6 +25,11 @@ Route::group(['middleware' => 'api', 'prefix' => 'auth'], function ($router) {
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::post('me', [AuthController::class, 'me']);
+
+    Route::group(['middleware' => 'api:auth'], function (){
+        //get data
+    });
+
 });
 
 Route::group(['namespace' => 'User', 'prefix' => 'users'], function (){

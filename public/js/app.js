@@ -19819,6 +19819,36 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /***/ }),
 
+/***/ "./resources/js/helpers/persistanceStorage.js":
+/*!****************************************************!*\
+  !*** ./resources/js/helpers/persistanceStorage.js ***!
+  \****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "getItem": () => (/* binding */ getItem),
+/* harmony export */   "setItem": () => (/* binding */ setItem)
+/* harmony export */ });
+var getItem = function getItem(key) {
+  try {
+    return JSON.parse(localStorage.getItem(key));
+  } catch (e) {
+    console.log('Error getting data from local storage');
+    return null;
+  }
+};
+var setItem = function setItem(key, data) {
+  try {
+    localStorage.setItem(key, JSON.stringify(data));
+  } catch (e) {
+    console.log('Error setting data to local storage');
+  }
+};
+
+/***/ }),
+
 /***/ "./resources/js/router/index.js":
 /*!**************************************!*\
   !*** ./resources/js/router/index.js ***!
@@ -19893,6 +19923,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _api_auth__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../api/auth */ "./resources/js/api/auth.js");
+/* harmony import */ var _helpers_persistanceStorage__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../helpers/persistanceStorage */ "./resources/js/helpers/persistanceStorage.js");
+
 
 var state = {
   isSubmitting: false,
@@ -19921,9 +19953,11 @@ var actions = {
       context.commit('registerStart');
       _api_auth__WEBPACK_IMPORTED_MODULE_0__["default"].register(credentials).then(function (res) {
         context.commit('registerSuccess', res.data);
+        (0,_helpers_persistanceStorage__WEBPACK_IMPORTED_MODULE_1__.setItem)('access_token', res.data.access_token);
         resolve(res.data);
-      })["catch"](function (res) {
-        context.commit('registerFailure', res.response.data.errors);
+      })["catch"](function (error) {
+        console.log(error);
+        context.commit('registerFailure', error);
       });
     }); // setTimeout(() => {
     //     context.commit('registerStart')
