@@ -9,6 +9,14 @@ const register = credentials => {
     })
 }
 
+const login = credentials => {
+    return axios.post('/api/auth/login', {
+        email: credentials.email,
+        password: credentials.password
+    })
+}
+
 export default {
-    register
+    register,
+    login
 }

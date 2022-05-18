@@ -19779,8 +19779,16 @@ var register = function register(credentials) {
   });
 };
 
+var login = function login(credentials) {
+  return axios__WEBPACK_IMPORTED_MODULE_0___default().post('/api/auth/login', {
+    email: credentials.email,
+    password: credentials.password
+  });
+};
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  register: register
+  register: register,
+  login: login
 });
 
 /***/ }),
@@ -19875,6 +19883,12 @@ var routes = [{
   component: function component() {
     return __webpack_require__.e(/*! import() | about */ "about").then(__webpack_require__.bind(__webpack_require__, /*! ../views/Register */ "./resources/js/views/Register.vue"));
   }
+}, {
+  path: '/login',
+  name: 'login',
+  component: function component() {
+    return __webpack_require__.e(/*! import() | about */ "about").then(__webpack_require__.bind(__webpack_require__, /*! ../views/Login */ "./resources/js/views/Login.vue"));
+  }
 }];
 var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_0__.createRouter)({
   history: (0,vue_router__WEBPACK_IMPORTED_MODULE_0__.createWebHistory)(process.env.BASE_URL),
@@ -19925,8 +19939,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "mutationTypes": () => (/* binding */ mutationTypes)
 /* harmony export */ });
 /* harmony import */ var _api_auth__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../api/auth */ "./resources/js/api/auth.js");
-/* harmony import */ var _helpers_persistanceStorage__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../helpers/persistanceStorage */ "./resources/js/helpers/persistanceStorage.js");
-var _mutations;
+/* harmony import */ var _helpers_persistanceStorage__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../helpers/persistanceStorage */ "./resources/js/helpers/persistanceStorage.js");
+var _mutations, _actions;
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -19941,7 +19955,10 @@ var state = {
 var mutationTypes = {
   registerStart: '[auth] registerStart',
   registerSuccess: '[auth] registerSuccess',
-  registerFailure: '[auth] registerFailure'
+  registerFailure: '[auth] registerFailure',
+  loginStart: '[auth] loginStart',
+  loginSuccess: '[auth] loginSuccess',
+  loginFailure: '[auth] loginFailure'
 };
 var mutations = (_mutations = {}, _defineProperty(_mutations, mutationTypes.registerStart, function (state) {
   state.isSubmitting = true;
@@ -19953,12 +19970,22 @@ var mutations = (_mutations = {}, _defineProperty(_mutations, mutationTypes.regi
 }), _defineProperty(_mutations, mutationTypes.registerFailure, function (state, payload) {
   state.isSubmitting = false;
   state.validationErrors = payload;
+}), _defineProperty(_mutations, mutationTypes.loginStart, function (state) {
+  state.isSubmitting = true;
+  state.validationErrors = null;
+}), _defineProperty(_mutations, mutationTypes.loginSuccess, function (state, payload) {
+  state.isSubmitting = false;
+  state.currentUser = payload;
+  state.isLoggedId = true;
+}), _defineProperty(_mutations, mutationTypes.loginFailure, function (state, payload) {
+  state.isSubmitting = false;
+  state.validationErrors = payload;
 }), _mutations);
 var actionTypes = {
-  register: '[auth] register'
+  register: '[auth] register',
+  login: '[auth] login'
 };
-
-var actions = _defineProperty({}, actionTypes.register, function (context, credentials) {
+var actions = (_actions = {}, _defineProperty(_actions, actionTypes.register, function (context, credentials) {
   return new Promise(function (resolve) {
     context.commit(mutationTypes.registerStart);
     _api_auth__WEBPACK_IMPORTED_MODULE_0__["default"].register(credentials).then(function (res) {
@@ -19968,11 +19995,19 @@ var actions = _defineProperty({}, actionTypes.register, function (context, crede
     })["catch"](function (error) {
       context.commit(mutationTypes.registerFailure, error.response.data.errors);
     });
-  }); // setTimeout(() => {
-  //     context.commit('registerStart')
-  // }, 1000)
-});
-
+  });
+}), _defineProperty(_actions, actionTypes.login, function (context, credentials) {
+  return new Promise(function (resolve) {
+    context.commit(mutationTypes.loginStart);
+    _api_auth__WEBPACK_IMPORTED_MODULE_0__["default"].login(credentials).then(function (res) {
+      context.commit(mutationTypes.loginSuccess, res.data);
+      (0,_helpers_persistanceStorage__WEBPACK_IMPORTED_MODULE_1__.setItem)('access_token', res.data.access_token);
+      resolve(res.data);
+    })["catch"](function (error) {
+      context.commit(mutationTypes.loginFailure, error.response.data.errors);
+    });
+  });
+}), _actions);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   state: state,
   mutations: mutations,
