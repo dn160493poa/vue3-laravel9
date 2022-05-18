@@ -19920,10 +19920,16 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */   "actionTypes": () => (/* binding */ actionTypes),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   "mutationTypes": () => (/* binding */ mutationTypes)
 /* harmony export */ });
 /* harmony import */ var _api_auth__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../api/auth */ "./resources/js/api/auth.js");
 /* harmony import */ var _helpers_persistanceStorage__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../helpers/persistanceStorage */ "./resources/js/helpers/persistanceStorage.js");
+var _mutations;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 var state = {
@@ -19932,37 +19938,41 @@ var state = {
   validationErrors: null,
   isLoggedId: null
 };
-var mutations = {
-  registerStart: function registerStart(state) {
-    state.isSubmitting = true;
-    state.validationErrors = null;
-  },
-  registerSuccess: function registerSuccess(state, payload) {
-    state.isSubmitting = false;
-    state.currentUser = payload;
-    state.isLoggedId = true;
-  },
-  registerFailure: function registerFailure(state, payload) {
-    state.isSubmitting = false;
-    state.validationErrors = payload;
-  }
+var mutationTypes = {
+  registerStart: '[auth] registerStart',
+  registerSuccess: '[auth] registerSuccess',
+  registerFailure: '[auth] registerFailure'
 };
-var actions = {
-  register: function register(context, credentials) {
-    return new Promise(function (resolve) {
-      context.commit('registerStart');
-      _api_auth__WEBPACK_IMPORTED_MODULE_0__["default"].register(credentials).then(function (res) {
-        context.commit('registerSuccess', res.data);
-        (0,_helpers_persistanceStorage__WEBPACK_IMPORTED_MODULE_1__.setItem)('access_token', res.data.access_token);
-        resolve(res.data);
-      })["catch"](function (error) {
-        context.commit('registerFailure', error.response.data.errors);
-      });
-    }); // setTimeout(() => {
-    //     context.commit('registerStart')
-    // }, 1000)
-  }
+var mutations = (_mutations = {}, _defineProperty(_mutations, mutationTypes.registerStart, function (state) {
+  state.isSubmitting = true;
+  state.validationErrors = null;
+}), _defineProperty(_mutations, mutationTypes.registerSuccess, function (state, payload) {
+  state.isSubmitting = false;
+  state.currentUser = payload;
+  state.isLoggedId = true;
+}), _defineProperty(_mutations, mutationTypes.registerFailure, function (state, payload) {
+  state.isSubmitting = false;
+  state.validationErrors = payload;
+}), _mutations);
+var actionTypes = {
+  register: '[auth] register'
 };
+
+var actions = _defineProperty({}, actionTypes.register, function (context, credentials) {
+  return new Promise(function (resolve) {
+    context.commit(mutationTypes.registerStart);
+    _api_auth__WEBPACK_IMPORTED_MODULE_0__["default"].register(credentials).then(function (res) {
+      context.commit(mutationTypes.registerSuccess, res.data);
+      (0,_helpers_persistanceStorage__WEBPACK_IMPORTED_MODULE_1__.setItem)('access_token', res.data.access_token);
+      resolve(res.data);
+    })["catch"](function (error) {
+      context.commit(mutationTypes.registerFailure, error.response.data.errors);
+    });
+  }); // setTimeout(() => {
+  //     context.commit('registerStart')
+  // }, 1000)
+});
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   state: state,
   mutations: mutations,

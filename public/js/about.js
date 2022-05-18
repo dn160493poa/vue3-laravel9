@@ -59,6 +59,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _components_ValidationErrors__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/ValidationErrors */ "./resources/js/components/ValidationErrors.vue");
+/* harmony import */ var _store_modules_auth__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../store/modules/auth */ "./resources/js/store/modules/auth.js");
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "McvRegister",
@@ -85,7 +87,7 @@ __webpack_require__.r(__webpack_exports__);
     onSubmit: function onSubmit() {
       var _this = this;
 
-      this.$store.dispatch('register', {
+      this.$store.dispatch(_store_modules_auth__WEBPACK_IMPORTED_MODULE_1__.actionTypes.register, {
         name: this.name,
         email: this.email,
         password: this.password,
