@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import McvValidationErrors from './../../components/ValidationErrors'
+import McvValidationErrors from '../components/ValidationErrors'
 export default {
     name: "McvRegister",
     components: {

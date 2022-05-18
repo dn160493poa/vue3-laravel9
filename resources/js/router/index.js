@@ -9,7 +9,7 @@ const routes = [
     {
         path: '/register',
         name: 'register',
-        component: () => import(/* webpackChunkName: "about" */ '../components/views/Register')
+        component: () => import(/* webpackChunkName: "about" */ '../views/Register')
     }
 ]
 

@@ -19873,7 +19873,7 @@ var routes = [{
   path: '/register',
   name: 'register',
   component: function component() {
-    return __webpack_require__.e(/*! import() | about */ "about").then(__webpack_require__.bind(__webpack_require__, /*! ../components/views/Register */ "./resources/js/components/views/Register.vue"));
+    return __webpack_require__.e(/*! import() | about */ "about").then(__webpack_require__.bind(__webpack_require__, /*! ../views/Register */ "./resources/js/views/Register.vue"));
   }
 }];
 var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_0__.createRouter)({
