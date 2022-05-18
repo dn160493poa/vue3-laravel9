@@ -19956,8 +19956,7 @@ var actions = {
         (0,_helpers_persistanceStorage__WEBPACK_IMPORTED_MODULE_1__.setItem)('access_token', res.data.access_token);
         resolve(res.data);
       })["catch"](function (error) {
-        console.log(error);
-        context.commit('registerFailure', error);
+        context.commit('registerFailure', error.response.data.errors);
       });
     }); // setTimeout(() => {
     //     context.commit('registerStart')

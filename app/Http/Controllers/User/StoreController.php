@@ -20,7 +20,7 @@ class StoreController extends Controller
                 "errors" => [
                     'user' => ['User with this email already exist'],
                 ],
-            ], 403);
+            ], 422);
         }
         $user = User::create($data);
         $token = auth()->tokenById($user->id);

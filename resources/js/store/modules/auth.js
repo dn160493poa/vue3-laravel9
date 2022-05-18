@@ -35,8 +35,7 @@ const actions = {
                     resolve(res.data)
                 })
                 .catch( error => {
-                    console.log(error)
-                    context.commit('registerFailure', error)
+                    context.commit('registerFailure', error.response.data.errors)
                 })
         })
         // setTimeout(() => {

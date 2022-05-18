@@ -30,4 +30,20 @@ class StoreRequest extends FormRequest
             'password_confirmation' => 'required|string',
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'name.required' => 'Name is required',
+            'name.string' => 'Name must be string',
+            'email.required' => 'Email is required',
+            'email.string' => 'Email must be string',
+            'email.email' => 'Email must be in supporting email formats',
+            'email.unique' => 'Email is already exist',
+            'password.required' => 'Password is required',
+            'password.string' => 'Password must be string',
+            'password_confirmation.required' => 'Confirmation password is required',
+            'password_confirmation.string' => 'Confirmation password must be string',
+        ];
+    }
 }
