@@ -19771,7 +19771,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var register = function register(credentials) {
-  return axios__WEBPACK_IMPORTED_MODULE_0___default().post('/api/users', {
+  return axios__WEBPACK_IMPORTED_MODULE_0___default().post('/api/auth/register', {
     name: credentials.name,
     email: credentials.email,
     password: credentials.password,

@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\User\LoginRequest;
+use App\Http\Requests\User\StoreRequest;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -15,6 +18,24 @@ class AuthController extends Controller
     public function __construct()
     {
         $this->middleware('auth:api', ['except' => ['login']]);
+    }
+
+    public function register(StoreRequest $request)
+    {
+        $data = $request->validated();
+        $data['password'] = Hash::make($data['password']);
+        $user = User::where('email', $data['email'])->first();
+        if ($user) {
+            return response([
+                'message' => 'User with this email already exist',
+                "errors" => [
+                    'user' => ['User with this email already exist'],
+                ],
+            ], 422);
+        }
+        $user = User::create($data);
+        $token = auth()->tokenById($user->id);
+        return response(['access_token' => $token]);
     }
 
     /**

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const register = credentials => {
-    return axios.post('/api/users', {
+    return axios.post('/api/auth/register', {
         name: credentials.name,
         email: credentials.email,
         password: credentials.password,
