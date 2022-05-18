@@ -5,7 +5,7 @@
                 <div class="col-md-6 offset-md-3 col-xs-12">
                     <h1 class="text-center">Sing In</h1>
                     <p class="text-center">
-                        <router-link :to="{ name: 'register' }">Already register?</router-link>
+                        <router-link :to="{ name: 'register' }" class="text-decoration-none text-success">Already register?</router-link>
                     </p>
                     <McvValidationErrors
                         v-if="validationErrors"
