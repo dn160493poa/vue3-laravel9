@@ -51,6 +51,24 @@ export const actionTypes = {
     login: '[auth] login',
 }
 
+export const gettersType = {
+    currentUser: '[auth] currentUser',
+    isLoggedIn: '[auth] isLoggedIn',
+    isAnonymous: '[auth] isAnonymous'
+}
+
+const getters = {
+    [gettersType.currentUser]: state => {
+        return state.currentUser
+    },
+    [gettersType.isLoggedIn]: state => {
+        return Boolean(state.isLoggedIn)
+    },
+    [gettersType.isAnonymous]: state => {
+        return state.isAnonymous === false
+    }
+}
+
 const actions = {
     [actionTypes.register](context, credentials){
         return new Promise(resolve => {
@@ -85,5 +103,6 @@ const actions = {
 export default {
     state,
     mutations,
-    actions
+    actions,
+    getters
 }

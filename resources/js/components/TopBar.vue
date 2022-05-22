@@ -1,9 +1,4 @@
 <template>
-
-    <!--  <router-link :to="{ name: 'home' }" class="navbar-brand">-->
-    <!--    MediumCLone-->
-    <!--  </router-link>-->
-
     <div class="container">
         <nav class="navbar navbar-expand-sm navbar-light">
             <div class="container-fluid">
@@ -31,7 +26,7 @@
                                 &nbsp; {{ currentUser.user }}
                             </router-link>
                         </template>
-                        <template v-if="!isLoggedIn">
+                        <template v-if="isAnonymous">
                             <router-link :to="{ name: 'login' }" class="nav-link" exact active-class="active">
                                 Sing In
                             </router-link>
@@ -44,12 +39,11 @@
             </div>
         </nav>
     </div>
-
-
 </template>
 
 <script>
-import {mapState} from 'vuex'
+import {gettersType} from "../store/modules/auth";
+import {mapGetters} from 'vuex'
 
 export default {
     name: "McvTopBar",
@@ -61,10 +55,11 @@ export default {
     },
 
     computed: {
-        ...mapState({
-            currentUser: state => state.auth.currentUser,
-            isLoggedIn: state => state.auth.isLoggedIn
-        })
+        ...mapGetters({
+            currentUser: gettersType.currentUser,
+            isLoggedIn: gettersType.isLoggedIn,
+            isAnonymous: gettersType.isAnonymous
+        }),
     },
 
     methods:{

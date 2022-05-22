@@ -19745,12 +19745,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
+/* harmony import */ var _store_modules_auth__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../store/modules/auth */ "./resources/js/store/modules/auth.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -19760,13 +19762,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       showDropDown: false
     };
   },
-  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapState)({
-    currentUser: function currentUser(state) {
-      return state.auth.currentUser;
-    },
-    isLoggedIn: function isLoggedIn(state) {
-      return state.auth.isLoggedIn;
-    }
+  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapGetters)({
+    currentUser: _store_modules_auth__WEBPACK_IMPORTED_MODULE_0__.gettersType.currentUser,
+    isLoggedIn: _store_modules_auth__WEBPACK_IMPORTED_MODULE_0__.gettersType.isLoggedIn,
+    isAnonymous: _store_modules_auth__WEBPACK_IMPORTED_MODULE_0__.gettersType.isAnonymous
   })),
   methods: {
     collapseList: function collapseList() {
@@ -19868,7 +19867,7 @@ var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNo
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_router_link = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("router-link");
 
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("  <router-link :to=\"{ name: 'home' }\" class=\"navbar-brand\">"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("    MediumCLone"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("  </router-link>"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("nav", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("nav", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
     to: {
       name: 'home'
     },
@@ -19962,7 +19961,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* PROPS */
   , ["to"])], 64
   /* STABLE_FRAGMENT */
-  )) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), !_ctx.isLoggedIn ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+  )) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _ctx.isAnonymous ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
     key: 1
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
     to: {
@@ -19996,9 +19995,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* STABLE_FRAGMENT */
   )) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])], 2
   /* CLASS */
-  )])])])], 2112
-  /* STABLE_FRAGMENT, DEV_ROOT_FRAGMENT */
-  );
+  )])])]);
 }
 
 /***/ }),
@@ -20184,11 +20181,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "actionTypes": () => (/* binding */ actionTypes),
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   "gettersType": () => (/* binding */ gettersType),
 /* harmony export */   "mutationTypes": () => (/* binding */ mutationTypes)
 /* harmony export */ });
 /* harmony import */ var _api_auth__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../api/auth */ "./resources/js/api/auth.js");
 /* harmony import */ var _helpers_persistanceStorage__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../helpers/persistanceStorage */ "./resources/js/helpers/persistanceStorage.js");
-var _mutations, _actions;
+var _mutations, _getters, _actions;
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -20234,6 +20232,18 @@ var actionTypes = {
   register: '[auth] register',
   login: '[auth] login'
 };
+var gettersType = {
+  currentUser: '[auth] currentUser',
+  isLoggedIn: '[auth] isLoggedIn',
+  isAnonymous: '[auth] isAnonymous'
+};
+var getters = (_getters = {}, _defineProperty(_getters, gettersType.currentUser, function (state) {
+  return state.currentUser;
+}), _defineProperty(_getters, gettersType.isLoggedIn, function (state) {
+  return Boolean(state.isLoggedIn);
+}), _defineProperty(_getters, gettersType.isAnonymous, function (state) {
+  return state.isAnonymous === false;
+}), _getters);
 var actions = (_actions = {}, _defineProperty(_actions, actionTypes.register, function (context, credentials) {
   return new Promise(function (resolve) {
     context.commit(mutationTypes.registerStart);
@@ -20260,7 +20270,8 @@ var actions = (_actions = {}, _defineProperty(_actions, actionTypes.register, fu
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   state: state,
   mutations: mutations,
-  actions: actions
+  actions: actions,
+  getters: getters
 });
 
 /***/ }),
