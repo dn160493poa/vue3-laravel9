@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\User\LoginRequest;
 use App\Http\Requests\User\StoreRequest;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
@@ -17,7 +16,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login']]);
+        $this->middleware('auth:api', ['except' => ['login', 'register']]);
     }
 
     public function register(StoreRequest $request)
@@ -35,7 +34,7 @@ class AuthController extends Controller
         }
         $user = User::create($data);
         $token = auth()->tokenById($user->id);
-        return response(['access_token' => $token]);
+        return response(['access_token' => $token, 'user' => $user['name']]);
     }
 
     /**
@@ -56,7 +55,8 @@ class AuthController extends Controller
             ], 422);
         }
 
-        return $this->respondWithToken($token);
+        $token = auth()->attempt($data);
+        return response()->json(['access_token' => $token, 'user' => auth()->user()->name]);
     }
 
     /**

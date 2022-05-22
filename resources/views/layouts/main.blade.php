@@ -15,7 +15,7 @@
     <link href="//fonts.googleapis.com/css?family=Titillium+Web:700|Source+Serif+Pro:400,700|Merriweather+Sans:400,700|Source+Sans+Pro:400,300,600,700,300italic,400italic,600italic,700italic" rel="stylesheet" type="text/css">
     <title>Vue-3/Laravel-9</title>
 </head>
-<body class="p-5">
+<body>
     <div id="app">
         @yield('content')
     </div>
