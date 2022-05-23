@@ -19719,11 +19719,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _components_TopBar__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/TopBar */ "./resources/js/components/TopBar.vue");
+/* harmony import */ var _store_modules_auth__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./store/modules/auth */ "./resources/js/store/modules/auth.js");
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "App",
   components: {
     McvTopBar: _components_TopBar__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  mounted: function mounted() {
+    this.$store.dispatch(_store_modules_auth__WEBPACK_IMPORTED_MODULE_1__.actionTypes.getCurrentUser);
   },
   data: function data() {
     return {
@@ -20011,12 +20016,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./axios */ "./resources/js/api/axios.js");
 
 
 var register = function register(credentials) {
-  return axios__WEBPACK_IMPORTED_MODULE_0___default().post('/api/auth/register', {
+  return _axios__WEBPACK_IMPORTED_MODULE_0__["default"].post('/api/auth/register', {
     name: credentials.name,
     email: credentials.email,
     password: credentials.password,
@@ -20025,16 +20029,47 @@ var register = function register(credentials) {
 };
 
 var login = function login(credentials) {
-  return axios__WEBPACK_IMPORTED_MODULE_0___default().post('/api/auth/login', {
+  return _axios__WEBPACK_IMPORTED_MODULE_0__["default"].post('/api/auth/login', {
     email: credentials.email,
     password: credentials.password
   });
 };
 
+var getCurrentUser = function getCurrentUser() {
+  return _axios__WEBPACK_IMPORTED_MODULE_0__["default"].post('/api/auth/me');
+};
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   register: register,
-  login: login
+  login: login,
+  getCurrentUser: getCurrentUser
 });
+
+/***/ }),
+
+/***/ "./resources/js/api/axios.js":
+/*!***********************************!*\
+  !*** ./resources/js/api/axios.js ***!
+  \***********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _helpers_persistanceStorage__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helpers/persistanceStorage */ "./resources/js/helpers/persistanceStorage.js");
+
+
+var api = axios__WEBPACK_IMPORTED_MODULE_0___default().create();
+api.interceptors.request.use(function (config) {
+  var token = (0,_helpers_persistanceStorage__WEBPACK_IMPORTED_MODULE_1__.getItem)('access_token');
+  config.headers.Authorization = token ? "Bearer ".concat(token) : '';
+  return config;
+});
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (api);
 
 /***/ }),
 
@@ -20194,6 +20229,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 var state = {
   isSubmitting: false,
+  isLoading: false,
   currentUser: null,
   validationErrors: null,
   isLoggedIn: null
@@ -20204,7 +20240,10 @@ var mutationTypes = {
   registerFailure: '[auth] registerFailure',
   loginStart: '[auth] loginStart',
   loginSuccess: '[auth] loginSuccess',
-  loginFailure: '[auth] loginFailure'
+  loginFailure: '[auth] loginFailure',
+  getCurrentUserStart: '[auth] getCurrentUserStart',
+  getCurrentUserSuccess: '[auth] getCurrentUserSuccess',
+  getCurrentUserFailure: '[auth] getCurrentUserFailure'
 };
 var mutations = (_mutations = {}, _defineProperty(_mutations, mutationTypes.registerStart, function (state) {
   state.isSubmitting = true;
@@ -20220,17 +20259,27 @@ var mutations = (_mutations = {}, _defineProperty(_mutations, mutationTypes.regi
   state.isSubmitting = true;
   state.validationErrors = null;
 }), _defineProperty(_mutations, mutationTypes.loginSuccess, function (state, payload) {
-  console.log(payload);
   state.isSubmitting = false;
   state.currentUser = payload;
   state.isLoggedIn = true;
 }), _defineProperty(_mutations, mutationTypes.loginFailure, function (state, payload) {
   state.isSubmitting = false;
   state.validationErrors = payload;
+}), _defineProperty(_mutations, mutationTypes.getCurrentUserStart, function (state) {
+  state.isLoading = true;
+}), _defineProperty(_mutations, mutationTypes.getCurrentUserSuccess, function (state, payload) {
+  state.isLoading = false;
+  state.currentUser = payload;
+  state.isLoggedIn = true;
+}), _defineProperty(_mutations, mutationTypes.getCurrentUserFailure, function (state) {
+  state.isLoading = false;
+  state.isLoggedIn = false;
+  state.currenUser = null;
 }), _mutations);
 var actionTypes = {
   register: '[auth] register',
-  login: '[auth] login'
+  login: '[auth] login',
+  getCurrentUser: '[auth] getCurrentUser'
 };
 var gettersType = {
   currentUser: '[auth] currentUser',
@@ -20242,7 +20291,7 @@ var getters = (_getters = {}, _defineProperty(_getters, gettersType.currentUser,
 }), _defineProperty(_getters, gettersType.isLoggedIn, function (state) {
   return Boolean(state.isLoggedIn);
 }), _defineProperty(_getters, gettersType.isAnonymous, function (state) {
-  return state.isAnonymous === false;
+  return state.isLoggedIn === false;
 }), _getters);
 var actions = (_actions = {}, _defineProperty(_actions, actionTypes.register, function (context, credentials) {
   return new Promise(function (resolve) {
@@ -20264,6 +20313,16 @@ var actions = (_actions = {}, _defineProperty(_actions, actionTypes.register, fu
       resolve(res.data);
     })["catch"](function (error) {
       context.commit(mutationTypes.loginFailure, error.response.data.errors);
+    });
+  });
+}), _defineProperty(_actions, actionTypes.getCurrentUser, function (context) {
+  return new Promise(function (resolve) {
+    context.commit(mutationTypes.getCurrentUserStart);
+    _api_auth__WEBPACK_IMPORTED_MODULE_0__["default"].getCurrentUser().then(function (res) {
+      context.commit(mutationTypes.getCurrentUserSuccess, res.data);
+      resolve(res.data);
+    })["catch"](function () {
+      context.commit(mutationTypes.getCurrentUserFailure);
     });
   });
 }), _actions);

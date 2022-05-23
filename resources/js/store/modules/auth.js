@@ -3,6 +3,7 @@ import {setItem} from '../../helpers/persistanceStorage'
 
 const state = {
     isSubmitting: false,
+    isLoading: false,
     currentUser: null,
     validationErrors: null,
     isLoggedIn: null
@@ -12,9 +13,14 @@ export const mutationTypes = {
     registerStart: '[auth] registerStart',
     registerSuccess: '[auth] registerSuccess',
     registerFailure: '[auth] registerFailure',
+
     loginStart: '[auth] loginStart',
     loginSuccess: '[auth] loginSuccess',
     loginFailure: '[auth] loginFailure',
+
+    getCurrentUserStart: '[auth] getCurrentUserStart',
+    getCurrentUserSuccess: '[auth] getCurrentUserSuccess',
+    getCurrentUserFailure: '[auth] getCurrentUserFailure',
 }
 
 const mutations = {
@@ -35,7 +41,7 @@ const mutations = {
         state.isSubmitting = true
         state.validationErrors = null
     },
-    [mutationTypes.loginSuccess](state, payload){  console.log(payload)
+    [mutationTypes.loginSuccess](state, payload){
         state.isSubmitting = false
         state.currentUser = payload 
         state.isLoggedIn = true
@@ -43,12 +49,26 @@ const mutations = {
     [mutationTypes.loginFailure](state, payload){
         state.isSubmitting = false
         state.validationErrors = payload
+    },
+    [mutationTypes.getCurrentUserStart](state){
+        state.isLoading = true
+    },
+    [mutationTypes.getCurrentUserSuccess](state, payload){
+        state.isLoading = false
+        state.currentUser = payload
+        state.isLoggedIn = true
+    },
+    [mutationTypes.getCurrentUserFailure](state){
+        state.isLoading = false
+        state.isLoggedIn = false
+        state.currenUser = null
     }
 }
 
 export const actionTypes = {
     register: '[auth] register',
     login: '[auth] login',
+    getCurrentUser: '[auth] getCurrentUser'
 }
 
 export const gettersType = {
@@ -65,7 +85,7 @@ const getters = {
         return Boolean(state.isLoggedIn)
     },
     [gettersType.isAnonymous]: state => {
-        return state.isAnonymous === false
+        return state.isLoggedIn === false
     }
 }
 
@@ -95,6 +115,20 @@ const actions = {
                 })
                 .catch( error => {
                     context.commit(mutationTypes.loginFailure, error.response.data.errors)
+                })
+        })
+    },
+
+    [actionTypes.getCurrentUser](context){
+        return new Promise(resolve => {
+            context.commit(mutationTypes.getCurrentUserStart)
+            authApi.getCurrentUser()
+                .then( res => {
+                    context.commit(mutationTypes.getCurrentUserSuccess, res.data)
+                    resolve(res.data)
+                })
+                .catch( () => {
+                    context.commit(mutationTypes.getCurrentUserFailure)
                 })
         })
     },
