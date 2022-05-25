@@ -15,6 +15,46 @@ const routes = [
         path: '/login',
         name: 'login',
         component: () => import(/* webpackChunkName: "about" */ '../views/Login')
+    },
+    {
+        path: '/feed',
+        name: 'yourFeed',
+        component: () => import(/* webpackChunkName: "about" */ '../views/GlobalFeed')
+    },
+    {
+        path: '/feed/:slug',
+        name: 'tag',
+        component: () => import(/* webpackChunkName: "about" */ '../views/GlobalFeed')
+    },
+    {
+        path: '/article/new',
+        name: 'article.store',
+        component: () => import(/* webpackChunkName: "about" */ '../views/GlobalFeed')
+    },
+    {
+        path: '/article/:slug',
+        name: 'article.show',
+        component: () => import(/* webpackChunkName: "about" */ '../views/GlobalFeed')
+    },
+    {
+        path: '/article/:slug/edit',
+        name: 'article.edit',
+        component: () => import(/* webpackChunkName: "about" */ '../views/GlobalFeed')
+    },
+    {
+        path: '/settings',
+        name: 'user.settings',
+        component: () => import(/* webpackChunkName: "about" */ '../views/GlobalFeed')
+    },
+    {
+        path: '/profile/:slug',
+        name: 'user.profile',
+        component: () => import(/* webpackChunkName: "about" */ '../views/GlobalFeed')
+    },
+    {
+        path: '/profile/:slug/favorites',
+        name: 'user.favorites',
+        component: () => import(/* webpackChunkName: "about" */ '../views/GlobalFeed')
     }
 ]
 
