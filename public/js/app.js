@@ -20073,6 +20073,30 @@ api.interceptors.request.use(function (config) {
 
 /***/ }),
 
+/***/ "./resources/js/api/feed.js":
+/*!**********************************!*\
+  !*** ./resources/js/api/feed.js ***!
+  \**********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./axios */ "./resources/js/api/axios.js");
+
+
+var getFeed = function getFeed(apiUrl) {
+  return _axios__WEBPACK_IMPORTED_MODULE_0__["default"].get(apiUrl);
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  getFeed: getFeed
+});
+
+/***/ }),
+
 /***/ "./resources/js/app.js":
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
@@ -20189,17 +20213,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
 /* harmony import */ var _modules_auth__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/auth */ "./resources/js/store/modules/auth.js");
+/* harmony import */ var _modules_feed__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/feed */ "./resources/js/store/modules/feed.js");
 
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,vuex__WEBPACK_IMPORTED_MODULE_1__.createStore)({
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,vuex__WEBPACK_IMPORTED_MODULE_2__.createStore)({
   state: {},
   getters: {},
   mutations: {},
   actions: {},
   modules: {
-    auth: _modules_auth__WEBPACK_IMPORTED_MODULE_0__["default"]
+    auth: _modules_auth__WEBPACK_IMPORTED_MODULE_0__["default"],
+    feed: _modules_feed__WEBPACK_IMPORTED_MODULE_1__["default"]
   }
 }));
 
@@ -20331,6 +20358,69 @@ var actions = (_actions = {}, _defineProperty(_actions, actionTypes.register, fu
   mutations: mutations,
   actions: actions,
   getters: getters
+});
+
+/***/ }),
+
+/***/ "./resources/js/store/modules/feed.js":
+/*!********************************************!*\
+  !*** ./resources/js/store/modules/feed.js ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "actionTypes": () => (/* binding */ actionTypes),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   "mutationTypes": () => (/* binding */ mutationTypes)
+/* harmony export */ });
+/* harmony import */ var _api_feed__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../api/feed */ "./resources/js/api/feed.js");
+var _mutations;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+var state = {
+  data: null,
+  isLoading: false,
+  error: null
+};
+var mutationTypes = {
+  getFeedStart: '[feed] Get feed start',
+  getFeedSuccess: '[feed] Get feed success',
+  getFeedFailure: '[feed] Get feed failure'
+};
+var actionTypes = {
+  getFeed: '[feed] Get feed'
+};
+var mutations = (_mutations = {}, _defineProperty(_mutations, mutationTypes.getFeedStart, function (state) {
+  state.isLoading = true;
+  state.data = null;
+}), _defineProperty(_mutations, mutationTypes.getFeedSuccess, function (state, payload) {
+  state.isLoading = false;
+  state.data = payload;
+}), _defineProperty(_mutations, mutationTypes.getFeedFailure, function (state) {
+  state.isLoading = false;
+}), _mutations);
+
+var actions = _defineProperty({}, actionTypes.getFeed, function (context, _ref) {
+  var apiUrl = _ref.apiUrl;
+  return new Promise(function (resolve) {
+    context.commit(mutationTypes.getFeedStart);
+    _api_feed__WEBPACK_IMPORTED_MODULE_0__["default"].getFeed(apiUrl).then(function (res) {
+      context.commit(mutationTypes.getFeedSuccess, res.data);
+      resolve(res.data);
+    })["catch"](function () {
+      context.commit(mutationTypes.getFeedFailure);
+    });
+  });
+});
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  state: state,
+  actions: actions,
+  mutations: mutations
 });
 
 /***/ }),

@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources\Post;
 
+use App\Http\Resources\Tag\TagResource;
+use App\Http\Resources\User\AuthorResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class PostResource extends JsonResource
@@ -18,7 +20,9 @@ class PostResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'body' => $this->body,
-            'description' => $this->description
+            'description' => $this->description,
+            'author' => new AuthorResource($this->author),
+            'tags' => TagResource::collection($this->tags)
         ];
     }
 }

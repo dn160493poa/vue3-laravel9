@@ -25,7 +25,7 @@ export default {
 
     data(){
         return {
-            apiUrl: 'https://conduit.productionready.io/api/articles'
+            apiUrl: '/api/posts'
         }
     }
 }

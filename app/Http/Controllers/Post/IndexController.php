@@ -10,7 +10,8 @@ use Illuminate\Http\Request;
 class IndexController extends Controller
 {
     public function __invoke(){
-        $post = Post::latest()->first();
-        return new PostResource($post);
+        $posts = Post::all();
+
+        return PostResource::collection($posts);
     }
 }
