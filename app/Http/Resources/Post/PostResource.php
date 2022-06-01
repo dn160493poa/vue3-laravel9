@@ -24,7 +24,7 @@ class PostResource extends JsonResource
             'body' => $this->body,
             'description' => $this->description,
             'author' => new AuthorResource($this->author),
-            'tags' => TagResource::collection($this->tags)
+            'tags' => TagResource::collection($this->tags),
         ];
     }
 }

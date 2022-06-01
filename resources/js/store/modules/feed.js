@@ -24,6 +24,7 @@ const mutations = {
     [mutationTypes.getFeedSuccess](state, payload){
         state.isLoading = false
         state.data = payload
+        console.log(payload)
     },
     [mutationTypes.getFeedFailure](state){
         state.isLoading = false
@@ -36,8 +37,8 @@ const actions = {
             context.commit(mutationTypes.getFeedStart)
             feed.getFeed(apiUrl)
                 .then(res => {
-                    context.commit(mutationTypes.getFeedSuccess, res.data)
-                    resolve(res.data)
+                    context.commit(mutationTypes.getFeedSuccess, res.data.data)
+                    resolve(res.data.data)
                 })
                 .catch(() => {
                     context.commit(mutationTypes.getFeedFailure)

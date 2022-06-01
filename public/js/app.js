@@ -20448,6 +20448,7 @@ var mutations = (_mutations = {}, _defineProperty(_mutations, mutationTypes.getF
 }), _defineProperty(_mutations, mutationTypes.getFeedSuccess, function (state, payload) {
   state.isLoading = false;
   state.data = payload;
+  console.log(payload);
 }), _defineProperty(_mutations, mutationTypes.getFeedFailure, function (state) {
   state.isLoading = false;
 }), _mutations);
@@ -20457,8 +20458,8 @@ var actions = _defineProperty({}, actionTypes.getFeed, function (context, _ref) 
   return new Promise(function (resolve) {
     context.commit(mutationTypes.getFeedStart);
     _api_feed__WEBPACK_IMPORTED_MODULE_0__["default"].getFeed(apiUrl).then(function (res) {
-      context.commit(mutationTypes.getFeedSuccess, res.data);
-      resolve(res.data);
+      context.commit(mutationTypes.getFeedSuccess, res.data.data);
+      resolve(res.data.data);
     })["catch"](function () {
       context.commit(mutationTypes.getFeedFailure);
     });
