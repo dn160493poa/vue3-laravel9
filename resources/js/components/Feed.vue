@@ -1,8 +1,8 @@
 <template>
     <div>
-        <div v-if="isLoading">Loading...</div>
+        <mcv-loading v-if="isLoading"></mcv-loading>
 
-        <div v-if="error">Something errors</div>
+        <mcv-error-message v-if="error" :message="error" ></mcv-error-message>
 
         <div v-if="feed">
             <div class="article-preview" v-for="(article, index) in feed.posts" :key="index">
@@ -48,11 +48,15 @@ import {actionTypes} from "../store/modules/feed";
 import McvPagination from "./Pagination";
 import {limit} from "../helpers/vars";
 import {stringify, parseUrl} from 'query-string'
+import McvLoading from "./Loading";
+import McvErrorMessage from "./ErrorMessage";
 
 export default {
     name: "McvFeed",
     components: {
-        McvPagination
+        McvPagination,
+        McvLoading,
+        McvErrorMessage
     },
 
     props: {

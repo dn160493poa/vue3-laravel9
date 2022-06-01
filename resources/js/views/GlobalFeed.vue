@@ -1,13 +1,13 @@
 <template>
     <div class="home-page">
-        BANNER
+        <mcv-banner></mcv-banner>
         <div class="container page">
             <div class="row">
                 <div class="col-md-9">
                     <mcv-feed :api-url="apiUrl" ></mcv-feed>
                 </div>
                 <div class="col-md-3">
-                    POPULAR TEG
+                    <mcv-popular-tag></mcv-popular-tag>
                 </div>
             </div>
         </div>
@@ -16,11 +16,15 @@
 
 <script>
 import McvFeed from '../components/Feed'
+import McvPopularTag from "../components/PopularTag";
+import McvBanner from "../components/Banner";
 
 export default {
     name: "McvGlobalFeed",
     components: {
-        McvFeed
+        McvFeed,
+        McvPopularTag,
+        McvBanner
     },
 
     data(){

@@ -20448,7 +20448,6 @@ var mutations = (_mutations = {}, _defineProperty(_mutations, mutationTypes.getF
 }), _defineProperty(_mutations, mutationTypes.getFeedSuccess, function (state, payload) {
   state.isLoading = false;
   state.data = payload;
-  console.log(payload);
 }), _defineProperty(_mutations, mutationTypes.getFeedFailure, function (state) {
   state.isLoading = false;
 }), _mutations);
