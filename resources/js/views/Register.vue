@@ -85,7 +85,7 @@ export default {
                 password: this.password,
                 password_confirmation: this.password_confirmation
             }).then(user => {
-                this.$router.push({ name: 'home' })
+                this.$router.push({ name: 'globalFeed' })
                 console.log('success registration', user)
             })
         }

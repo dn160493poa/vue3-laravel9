@@ -2,7 +2,7 @@
     <div class="container">
         <nav class="navbar navbar-expand-sm navbar-light">
             <div class="container-fluid">
-                  <router-link :to="{ name: 'home' }" class="navbar-brand">
+                  <router-link :to="{ name: 'globalFeed' }" class="navbar-brand">
                     MediumCLone
                   </router-link>
                 <button @click.prevent="collapseList" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -11,18 +11,18 @@
 
                 <div class="collapse navbar-collapse justify-content-end" :class="{ show: showDropDown }" id="navbarNavAltMarkup">
                     <div class="navbar-nav" >
-                        <router-link :to="{ name: 'home' }" class="nav-link" active-class="active">
+                        <router-link :to="{ name: 'globalFeed' }" class="nav-link" active-class="active">
                             Home
                         </router-link>
                         <template v-if="isLoggedIn">
-                            <router-link :to="{ name: 'home' }" class="nav-link" exact active-class="active">
+                            <router-link :to="{ name: 'globalFeed' }" class="nav-link" exact active-class="active">
                                 New Article
                             </router-link>
-                            <router-link :to="{ name: 'home' }" class="nav-link" exact active-class="active">
+                            <router-link :to="{ name: 'globalFeed' }" class="nav-link" exact active-class="active">
                                 Settings
                             </router-link>
-                            <router-link :to="{ name: 'home', params: {slug: currentUser.user} }" class="nav-link" exact active-class="active">
-                                <img class="user-pic user-photo" src="https://crmcore.app/uploads/avatars/1/1/photo.jpg" alt="">
+                            <router-link :to="{ name: 'globalFeed', params: {slug: currentUser.user} }" class="nav-link" exact active-class="active">
+                                <img class="user-pic user-photo" :src="currentUser.avatar_image" alt="">
                                 &nbsp; {{ currentUser.user }}
                             </router-link>
                         </template>

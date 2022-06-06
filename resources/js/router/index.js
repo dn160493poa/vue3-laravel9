@@ -3,7 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 const routes = [
     {
         path: '/',
-        name: 'home',
+        name: 'globalFeed',
         component: () => import(/* webpackChunkName: "about" */ '../views/GlobalFeed')
     },
     {
@@ -19,25 +19,25 @@ const routes = [
     {
         path: '/feed',
         name: 'yourFeed',
-        component: () => import(/* webpackChunkName: "about" */ '../views/GlobalFeed')
+        component: () => import(/* webpackChunkName: "about" */ '../views/YourFeed')
     },
     {
-        path: '/feed/:slug',
+        path: '/tags/:slug',
         name: 'tag',
-        component: () => import(/* webpackChunkName: "about" */ '../views/GlobalFeed')
+        component: () => import(/* webpackChunkName: "about" */ '../views/TagFeed')
     },
     {
-        path: '/article/new',
+        path: '/post/new',
         name: 'article.store',
         component: () => import(/* webpackChunkName: "about" */ '../views/GlobalFeed')
     },
     {
-        path: '/article/:slug',
+        path: '/post/:slug',
         name: 'article.show',
         component: () => import(/* webpackChunkName: "about" */ '../views/GlobalFeed')
     },
     {
-        path: '/article/:slug/edit',
+        path: '/post/:slug/edit',
         name: 'article.edit',
         component: () => import(/* webpackChunkName: "about" */ '../views/GlobalFeed')
     },

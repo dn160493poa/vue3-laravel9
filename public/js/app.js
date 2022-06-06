@@ -19855,15 +19855,7 @@ var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNod
 
 var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Settings ");
 
-var _hoisted_11 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
-    "class": "user-pic user-photo",
-    src: "https://crmcore.app/uploads/avatars/1/1/photo.jpg",
-    alt: ""
-  }, null, -1
-  /* HOISTED */
-  );
-});
+var _hoisted_11 = ["src"];
 
 var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Sing In ");
 
@@ -19874,7 +19866,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("nav", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
     to: {
-      name: 'home'
+      name: 'globalFeed'
     },
     "class": "navbar-brand"
   }, {
@@ -19902,7 +19894,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     id: "navbarNavAltMarkup"
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
     to: {
-      name: 'home'
+      name: 'globalFeed'
     },
     "class": "nav-link",
     "active-class": "active"
@@ -19917,7 +19909,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     key: 0
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
     to: {
-      name: 'home'
+      name: 'globalFeed'
     },
     "class": "nav-link",
     exact: "",
@@ -19931,7 +19923,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
     to: {
-      name: 'home'
+      name: 'globalFeed'
     },
     "class": "nav-link",
     exact: "",
@@ -19945,7 +19937,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
     to: {
-      name: 'home',
+      name: 'globalFeed',
       params: {
         slug: _ctx.currentUser.user
       }
@@ -19955,7 +19947,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "active-class": "active"
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [_hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("   " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.currentUser.user), 1
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+        "class": "user-pic user-photo",
+        src: _ctx.currentUser.avatar_image,
+        alt: ""
+      }, null, 8
+      /* PROPS */
+      , _hoisted_11), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("   " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.currentUser.user), 1
       /* TEXT */
       )];
     }),
@@ -20177,7 +20175,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var routes = [{
   path: '/',
-  name: 'home',
+  name: 'globalFeed',
   component: function component() {
     return __webpack_require__.e(/*! import() | about */ "about").then(__webpack_require__.bind(__webpack_require__, /*! ../views/GlobalFeed */ "./resources/js/views/GlobalFeed.vue"));
   }
@@ -20197,28 +20195,28 @@ var routes = [{
   path: '/feed',
   name: 'yourFeed',
   component: function component() {
-    return __webpack_require__.e(/*! import() | about */ "about").then(__webpack_require__.bind(__webpack_require__, /*! ../views/GlobalFeed */ "./resources/js/views/GlobalFeed.vue"));
+    return __webpack_require__.e(/*! import() | about */ "about").then(__webpack_require__.bind(__webpack_require__, /*! ../views/YourFeed */ "./resources/js/views/YourFeed.vue"));
   }
 }, {
-  path: '/feed/:slug',
+  path: '/tags/:slug',
   name: 'tag',
   component: function component() {
-    return __webpack_require__.e(/*! import() | about */ "about").then(__webpack_require__.bind(__webpack_require__, /*! ../views/GlobalFeed */ "./resources/js/views/GlobalFeed.vue"));
+    return __webpack_require__.e(/*! import() | about */ "about").then(__webpack_require__.bind(__webpack_require__, /*! ../views/TagFeed */ "./resources/js/views/TagFeed.vue"));
   }
 }, {
-  path: '/article/new',
+  path: '/post/new',
   name: 'article.store',
   component: function component() {
     return __webpack_require__.e(/*! import() | about */ "about").then(__webpack_require__.bind(__webpack_require__, /*! ../views/GlobalFeed */ "./resources/js/views/GlobalFeed.vue"));
   }
 }, {
-  path: '/article/:slug',
+  path: '/post/:slug',
   name: 'article.show',
   component: function component() {
     return __webpack_require__.e(/*! import() | about */ "about").then(__webpack_require__.bind(__webpack_require__, /*! ../views/GlobalFeed */ "./resources/js/views/GlobalFeed.vue"));
   }
 }, {
-  path: '/article/:slug/edit',
+  path: '/post/:slug/edit',
   name: 'article.edit',
   component: function component() {
     return __webpack_require__.e(/*! import() | about */ "about").then(__webpack_require__.bind(__webpack_require__, /*! ../views/GlobalFeed */ "./resources/js/views/GlobalFeed.vue"));

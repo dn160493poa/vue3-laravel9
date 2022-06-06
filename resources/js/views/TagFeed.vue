@@ -4,7 +4,7 @@
         <div class="container page">
             <div class="row">
                 <div class="col-md-9">
-                    <mvc-feed-toggle></mvc-feed-toggle>
+                    <mvc-feed-toggle :tag-name="tagName"></mvc-feed-toggle>
                     <mcv-feed :api-url="apiUrl" ></mcv-feed>
                 </div>
                 <div class="col-md-3">
@@ -22,7 +22,7 @@ import McvBanner from "../components/Banner";
 import MvcFeedToggle from "../components/FeedToggle";
 
 export default {
-    name: "McvGlobalFeed",
+    name: "McvTagFeed",
     components: {
         McvFeed,
         McvPopularTag,
@@ -30,10 +30,14 @@ export default {
         MvcFeedToggle
     },
 
-    data(){
-        return {
-            apiUrl: '/api/posts'
-        }
+    computed: {
+      tagName(){
+        console.log(this.$route.params.slug)
+          return this.$route.params.slug
+      },
+      apiUrl(){
+        return `/api/posts?tag=${this.tagName}`
+      }
     }
 }
 </script>
