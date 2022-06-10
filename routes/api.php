@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Post\DeleteController;
 use App\Http\Controllers\Post\IndexController;
 use App\Http\Controllers\Post\ShowController;
 use App\Http\Controllers\User\StoreController;
@@ -35,5 +36,7 @@ Route::group(['middleware' => 'auth:api'], function (){
     Route::group(['namespace' => 'Post', 'prefix' => 'posts'], function (){
         Route::get('/', [IndexController::class, '__invoke']);
         Route::get('/{post}', [ShowController::class, '__invoke']);
+        Route::delete('/{post}', [DeleteController::class, '__invoke']);
+
     });
 });

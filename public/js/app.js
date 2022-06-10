@@ -20021,8 +20021,13 @@ var getArticle = function getArticle(postId) {
   return _axios__WEBPACK_IMPORTED_MODULE_0__["default"].get("/api/posts/".concat(postId));
 };
 
+var deleteArticle = function deleteArticle(postId) {
+  return _axios__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"]("/api/posts/".concat(postId));
+};
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  getArticle: getArticle
+  getArticle: getArticle,
+  deleteArticle: deleteArticle
 });
 
 /***/ }),
@@ -20319,7 +20324,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "mutationTypes": () => (/* binding */ mutationTypes)
 /* harmony export */ });
 /* harmony import */ var _api_article__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../api/article */ "./resources/js/api/article.js");
-var _mutations;
+var _mutations, _actions;
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -20332,10 +20337,14 @@ var state = {
 var mutationTypes = {
   getArticleStart: '[article] Get article start',
   getArticleSuccess: '[article] Get article success',
-  getArticleFailure: '[article] Get article failure'
+  getArticleFailure: '[article] Get article failure',
+  deleteArticleStart: '[article] Delete article start',
+  deleteArticleSuccess: '[article] Delete article success',
+  deleteArticleFailure: '[article] Delete article failure'
 };
 var actionTypes = {
-  getArticle: '[article] Get article'
+  getArticle: '[article] Get article',
+  deleteArticle: '[article] Delete article'
 };
 var mutations = (_mutations = {}, _defineProperty(_mutations, mutationTypes.getArticleStart, function (state) {
   state.isLoading = true;
@@ -20345,9 +20354,8 @@ var mutations = (_mutations = {}, _defineProperty(_mutations, mutationTypes.getA
   state.data = payload;
 }), _defineProperty(_mutations, mutationTypes.getArticleFailure, function (state) {
   state.isLoading = true;
-}), _mutations);
-
-var actions = _defineProperty({}, actionTypes.getArticle, function (context, _ref) {
+}), _defineProperty(_mutations, mutationTypes.deleteArticleStart, function () {}), _defineProperty(_mutations, mutationTypes.deleteArticleSuccess, function () {}), _defineProperty(_mutations, mutationTypes.deleteArticleFailure, function () {}), _mutations);
+var actions = (_actions = {}, _defineProperty(_actions, actionTypes.getArticle, function (context, _ref) {
   var postId = _ref.postId;
   return new Promise(function (resolve) {
     context.commit(mutationTypes.getArticleStart, postId);
@@ -20358,8 +20366,17 @@ var actions = _defineProperty({}, actionTypes.getArticle, function (context, _re
       context.commit(mutationTypes.getArticleFailure);
     });
   });
-});
-
+}), _defineProperty(_actions, actionTypes.deleteArticle, function (context, _ref2) {
+  var postId = _ref2.postId;
+  return new Promise(function () {
+    context.commit(mutationTypes.deleteArticleStart, postId);
+    _api_article__WEBPACK_IMPORTED_MODULE_0__["default"].deleteArticle(postId).then(function () {
+      context.commit(mutationTypes.deleteArticleSuccess);
+    })["catch"](function () {
+      context.commit(mutationTypes.deleteArticleFailure);
+    });
+  });
+}), _actions);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   state: state,
   actions: actions,

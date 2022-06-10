@@ -7,11 +7,11 @@
         <div v-if="feed">
             <div class="article-preview" v-for="(article, index) in feed.posts" :key="index">
                 <div class="article-meta">
-                    <router-link :to="{ name: 'user.profile', params: {slug: article.author.username} }">
+                    <router-link :to="{ name: 'user.profile', params: {userId: article.author.id} }">
                         <img :src="article.author.image" alt="" class="user-icon">
                     </router-link>
                     <div class="info">
-                        <router-link :to="{ name: 'user.profile', params: {slug: article.author.username} }"
+                        <router-link :to="{ name: 'user.profile', params: {userId: article.author.id} }"
                                      class="author">
                             {{ article.author.username }}
                         </router-link>

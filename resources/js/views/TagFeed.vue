@@ -32,7 +32,6 @@ export default {
 
     computed: {
       tagName(){
-        console.log(this.$route.params.slug)
           return this.$route.params.slug
       },
       apiUrl(){
