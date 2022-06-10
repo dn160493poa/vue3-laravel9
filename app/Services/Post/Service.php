@@ -8,12 +8,12 @@ use Illuminate\Support\Facades\DB;
 
 class Service
 {
-    public function deletePost($post){
+    public function deletePost($data){
         try{
             DB::beginTransaction();
 
             $affected = DB::table('posts')
-                ->where('id', $post->id)
+                ->where('id', $data["post"])
                 ->update(['active' => false]);
 
             DB::commit();

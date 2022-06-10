@@ -5,7 +5,7 @@ const getArticle = postId => {
 }
 
 const deleteArticle = postId => {
-    return api.delete(`/api/posts/${postId}`)
+    return api.delete(`/api/posts/${postId}`, {data: {post: postId}} )
 }
 
 

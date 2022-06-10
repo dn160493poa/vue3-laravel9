@@ -20022,7 +20022,11 @@ var getArticle = function getArticle(postId) {
 };
 
 var deleteArticle = function deleteArticle(postId) {
-  return _axios__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"]("/api/posts/".concat(postId));
+  return _axios__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"]("/api/posts/".concat(postId), {
+    data: {
+      post: postId
+    }
+  });
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({

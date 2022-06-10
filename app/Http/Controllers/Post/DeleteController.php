@@ -3,16 +3,17 @@
 namespace App\Http\Controllers\Post;
 
 use App\Http\Controllers\Controller;
-use App\Models\Post;
+use App\Http\Requests\Post\DeleteRequest;
 use App\Services\Post\Service;
-
-use Illuminate\Http\Request;
 
 class DeleteController extends Controller
 {
-    public function __invoke(Post $post){
+    public function __invoke(DeleteRequest $deleteRequest){
+
+        $data = $deleteRequest->validated();
+
         $service = new Service();
-        $delete_result = $service->deletePost($post);
+        $delete_result = $service->deletePost($data);
 
         return response(['result' => $delete_result]);
     }
