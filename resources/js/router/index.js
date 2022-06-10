@@ -32,12 +32,12 @@ const routes = [
         component: () => import(/* webpackChunkName: "about" */ '../views/GlobalFeed')
     },
     {
-        path: '/post/:slug',
+        path: '/post/:postId',
         name: 'article.show',
-        component: () => import(/* webpackChunkName: "about" */ '../views/GlobalFeed')
+        component: () => import(/* webpackChunkName: "about" */ '../views/Article')
     },
     {
-        path: '/post/:slug/edit',
+        path: '/post/:postId/edit',
         name: 'article.edit',
         component: () => import(/* webpackChunkName: "about" */ '../views/GlobalFeed')
     },
@@ -47,7 +47,7 @@ const routes = [
         component: () => import(/* webpackChunkName: "about" */ '../views/GlobalFeed')
     },
     {
-        path: '/profile/:slug',
+        path: '/profile/:userId',
         name: 'user.profile',
         component: () => import(/* webpackChunkName: "about" */ '../views/GlobalFeed')
     },

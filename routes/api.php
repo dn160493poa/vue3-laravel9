@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Post\IndexController;
+use App\Http\Controllers\Post\ShowController;
 use App\Http\Controllers\User\StoreController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -33,5 +34,6 @@ Route::group(['middleware' => 'api', 'prefix' => 'auth'], function ($router) {
 Route::group(['middleware' => 'auth:api'], function (){
     Route::group(['namespace' => 'Post', 'prefix' => 'posts'], function (){
         Route::get('/', [IndexController::class, '__invoke']);
+        Route::get('/{post}', [ShowController::class, '__invoke']);
     });
 });

@@ -25,7 +25,7 @@
                         </button>
                     </div>
                 </div>
-                <router-link :to="{ name: 'article.show', params: {slug: article.slug} }" class="preview-link">
+                <router-link :to="{ name: 'article.show', params: {slug: article.slug, postId: article.id}}" class="preview-link">
                     <h1>{{ article.title }}</h1>
                     <p>{{ article.description }}</p>
                     <span>Read more...</span>
