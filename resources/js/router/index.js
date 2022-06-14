@@ -29,7 +29,7 @@ const routes = [
     {
         path: '/post/new',
         name: 'article.store',
-        component: () => import(/* webpackChunkName: "about" */ '../views/GlobalFeed')
+        component: () => import(/* webpackChunkName: "about" */ '../views/CreateArticle')
     },
     {
         path: '/post/:postId',
@@ -39,7 +39,7 @@ const routes = [
     {
         path: '/post/:postId/edit',
         name: 'article.edit',
-        component: () => import(/* webpackChunkName: "about" */ '../views/GlobalFeed')
+        component: () => import(/* webpackChunkName: "about" */ '../views/EditArticle')
     },
     {
         path: '/settings',

@@ -15,7 +15,7 @@
                             Home
                         </router-link>
                         <template v-if="isLoggedIn">
-                            <router-link :to="{ name: 'globalFeed' }" class="nav-link" exact active-class="active">
+                            <router-link :to="{ name: 'article.store' }" class="nav-link" exact active-class="active">
                                 New Article
                             </router-link>
                             <router-link :to="{ name: 'globalFeed' }" class="nav-link" exact active-class="active">

@@ -19909,7 +19909,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     key: 0
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
     to: {
-      name: 'globalFeed'
+      name: 'article.store'
     },
     "class": "nav-link",
     exact: "",
@@ -19921,7 +19921,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
     /* STABLE */
 
-  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
+  }, 8
+  /* PROPS */
+  , ["to"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
     to: {
       name: 'globalFeed'
     },
@@ -20029,9 +20031,24 @@ var deleteArticle = function deleteArticle(postId) {
   });
 };
 
+var createArticle = function createArticle(articleData) {
+  return _axios__WEBPACK_IMPORTED_MODULE_0__["default"].post('/api/posts', {
+    data: articleData
+  });
+};
+
+var updateArticle = function updateArticle(postId, articleData) {
+  return _axios__WEBPACK_IMPORTED_MODULE_0__["default"].patch("/api/posts/".concat(postId), {
+    post: postId,
+    data: articleData
+  });
+};
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   getArticle: getArticle,
-  deleteArticle: deleteArticle
+  deleteArticle: deleteArticle,
+  createArticle: createArticle,
+  updateArticle: updateArticle
 });
 
 /***/ }),
@@ -20240,7 +20257,7 @@ var routes = [{
   path: '/post/new',
   name: 'article.store',
   component: function component() {
-    return __webpack_require__.e(/*! import() | about */ "about").then(__webpack_require__.bind(__webpack_require__, /*! ../views/GlobalFeed */ "./resources/js/views/GlobalFeed.vue"));
+    return __webpack_require__.e(/*! import() | about */ "about").then(__webpack_require__.bind(__webpack_require__, /*! ../views/CreateArticle */ "./resources/js/views/CreateArticle.vue"));
   }
 }, {
   path: '/post/:postId',
@@ -20252,7 +20269,7 @@ var routes = [{
   path: '/post/:postId/edit',
   name: 'article.edit',
   component: function component() {
-    return __webpack_require__.e(/*! import() | about */ "about").then(__webpack_require__.bind(__webpack_require__, /*! ../views/GlobalFeed */ "./resources/js/views/GlobalFeed.vue"));
+    return __webpack_require__.e(/*! import() | about */ "about").then(__webpack_require__.bind(__webpack_require__, /*! ../views/EditArticle */ "./resources/js/views/EditArticle.vue"));
   }
 }, {
   path: '/settings',
@@ -20292,15 +20309,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
 /* harmony import */ var _modules_auth__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/auth */ "./resources/js/store/modules/auth.js");
 /* harmony import */ var _modules_feed__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/feed */ "./resources/js/store/modules/feed.js");
 /* harmony import */ var _modules_article__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/article */ "./resources/js/store/modules/article.js");
+/* harmony import */ var _modules_createArticle__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/createArticle */ "./resources/js/store/modules/createArticle.js");
+/* harmony import */ var _modules_editArticle__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/editArticle */ "./resources/js/store/modules/editArticle.js");
 
 
 
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,vuex__WEBPACK_IMPORTED_MODULE_3__.createStore)({
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,vuex__WEBPACK_IMPORTED_MODULE_5__.createStore)({
   state: {},
   getters: {},
   mutations: {},
@@ -20308,7 +20329,9 @@ __webpack_require__.r(__webpack_exports__);
   modules: {
     auth: _modules_auth__WEBPACK_IMPORTED_MODULE_0__["default"],
     feed: _modules_feed__WEBPACK_IMPORTED_MODULE_1__["default"],
-    article: _modules_article__WEBPACK_IMPORTED_MODULE_2__["default"]
+    article: _modules_article__WEBPACK_IMPORTED_MODULE_2__["default"],
+    createArticle: _modules_createArticle__WEBPACK_IMPORTED_MODULE_3__["default"],
+    editArticle: _modules_editArticle__WEBPACK_IMPORTED_MODULE_4__["default"]
   }
 }));
 
@@ -20515,6 +20538,154 @@ var actions = (_actions = {}, _defineProperty(_actions, actionTypes.register, fu
   mutations: mutations,
   actions: actions,
   getters: getters
+});
+
+/***/ }),
+
+/***/ "./resources/js/store/modules/createArticle.js":
+/*!*****************************************************!*\
+  !*** ./resources/js/store/modules/createArticle.js ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "actionTypes": () => (/* binding */ actionTypes),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   "mutationTypes": () => (/* binding */ mutationTypes)
+/* harmony export */ });
+/* harmony import */ var _api_article__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../api/article */ "./resources/js/api/article.js");
+var _mutations;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+var state = {
+  isSubmitting: false,
+  validationErrors: null
+};
+var mutationTypes = {
+  createArticleStart: '[createArticle] Create Article start',
+  createArticleSuccess: '[createArticle] Create Article success',
+  createArticleFailure: '[createArticle] Create Article failure'
+};
+var actionTypes = {
+  createArticle: '[createArticle] Create Article'
+};
+var mutations = (_mutations = {}, _defineProperty(_mutations, mutationTypes.createArticleStart, function (state) {
+  state.isSubmitting = true;
+}), _defineProperty(_mutations, mutationTypes.createArticleSuccess, function (state) {
+  state.isSubmitting = false;
+}), _defineProperty(_mutations, mutationTypes.createArticleFailure, function (state, payload) {
+  state.isSubmitting = false;
+  state.validationErrors = payload;
+}), _mutations);
+
+var actions = _defineProperty({}, actionTypes.createArticle, function (context, _ref) {
+  var articleData = _ref.articleData;
+  return new Promise(function (resolve) {
+    context.commit(mutationTypes.createArticleStart);
+    _api_article__WEBPACK_IMPORTED_MODULE_0__["default"].createArticle(articleData).then(function (article) {
+      context.commit(mutationTypes.createArticleSuccess, article);
+      resolve(article);
+    })["catch"](function (error) {
+      context.commit(mutationTypes.createArticleFailure, error);
+      resolve(error);
+    });
+  });
+});
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  state: state,
+  actions: actions,
+  mutations: mutations
+});
+
+/***/ }),
+
+/***/ "./resources/js/store/modules/editArticle.js":
+/*!***************************************************!*\
+  !*** ./resources/js/store/modules/editArticle.js ***!
+  \***************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "actionTypes": () => (/* binding */ actionTypes),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   "mutationTypes": () => (/* binding */ mutationTypes)
+/* harmony export */ });
+/* harmony import */ var _api_article__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../api/article */ "./resources/js/api/article.js");
+var _mutations, _actions;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+var state = {
+  isSubmitting: false,
+  validationErrors: null,
+  isLoading: false,
+  data: null
+};
+var mutationTypes = {
+  updateArticleStart: '[updateArticle] Edit Article start',
+  updateArticleSuccess: '[updateArticle] Edit Article success',
+  updateArticleFailure: '[updateArticle] Edit Article failure',
+  getArticleStart: '[getArticle] Get Article start',
+  getArticleSuccess: '[getArticle] Get Article success',
+  getArticleFailure: '[getArticle] Get Article failure'
+};
+var actionTypes = {
+  updateArticle: '[updateArticle] Update Article',
+  getArticle: '[getArticle] Get Article'
+};
+var mutations = (_mutations = {}, _defineProperty(_mutations, mutationTypes.updateArticleStart, function (state) {
+  state.isSubmitting = true;
+}), _defineProperty(_mutations, mutationTypes.updateArticleSuccess, function (state) {
+  state.isSubmitting = false;
+}), _defineProperty(_mutations, mutationTypes.updateArticleFailure, function (state, payload) {
+  state.isSubmitting = false;
+  state.validationErrors = payload;
+}), _defineProperty(_mutations, mutationTypes.getArticleStart, function (state) {
+  state.isLoading = true;
+}), _defineProperty(_mutations, mutationTypes.getArticleSuccess, function (state, payload) {
+  state.isLoading = false;
+  state.data = payload;
+}), _defineProperty(_mutations, mutationTypes.getArticleFailure, function (state) {
+  state.isLoading = false;
+}), _mutations);
+var actions = (_actions = {}, _defineProperty(_actions, actionTypes.updateArticle, function (context, _ref) {
+  var postId = _ref.postId,
+      articleData = _ref.articleData;
+  return new Promise(function (resolve) {
+    context.commit(mutationTypes.updateArticleStart);
+    _api_article__WEBPACK_IMPORTED_MODULE_0__["default"].updateArticle(postId, articleData).then(function (article) {
+      context.commit(mutationTypes.updateArticleSuccess, article);
+      resolve(article);
+    })["catch"](function (error) {
+      context.commit(mutationTypes.updateArticleFailure, error);
+      resolve(error);
+    });
+  });
+}), _defineProperty(_actions, actionTypes.getArticle, function (context, _ref2) {
+  var postId = _ref2.postId;
+  return new Promise(function (resolve) {
+    context.commit(mutationTypes.getArticleStart);
+    _api_article__WEBPACK_IMPORTED_MODULE_0__["default"].getArticle(postId).then(function (article) {
+      context.commit(mutationTypes.getArticleSuccess, article.data.data);
+      resolve(article);
+    })["catch"](function (error) {
+      context.commit(mutationTypes.getArticleFailure, error);
+      resolve(error);
+    });
+  });
+}), _actions);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  state: state,
+  actions: actions,
+  mutations: mutations
 });
 
 /***/ }),

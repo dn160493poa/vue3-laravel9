@@ -17,7 +17,7 @@
             <router-link class="btn btn-outline-secondary btn-sm" :to="{name: 'article.edit', params: {postId: article.id}}">
               <i class="ion-edit"></i>Edit Article
             </router-link>
-            <button class="btn btn-outline-danger btn-sm " @click="deleteArticle">
+            <button class="btn btn-outline-danger btn-sm ms-1" @click="deleteArticle">
               <i class="ion-trash-a"></i>Delete Article
             </button>
           </span>
