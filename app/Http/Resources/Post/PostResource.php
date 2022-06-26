@@ -4,6 +4,7 @@ namespace App\Http\Resources\Post;
 
 use App\Http\Resources\Tag\TagResource;
 use App\Http\Resources\User\AuthorResource;
+use App\Models\User;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class PostResource extends JsonResource
@@ -24,8 +25,9 @@ class PostResource extends JsonResource
             'body' => $this->body,
             'description' => $this->description,
             'author' => new AuthorResource($this->author),
-            //'tags' => TagResource::collection($this->tags)->implode('title', ', '),
             'tags' => collect(TagResource::collection($this->tags))->collapse(),
+            'likes' => $this->likes_count,
+            'favorited' => auth()->user()->likedPosts->contains($this->id)
         ];
     }
 }

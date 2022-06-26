@@ -152,9 +152,9 @@ const actions = {
         return new Promise(resolve => {
             context.commit(mutationTypes.updateCurrentUserStart)
             authApi.updateCurrentUser(userData)
-                .then( res => {
-                    context.commit(mutationTypes.updateCurrentUserSuccess, res.data)
-                    resolve(res.data)
+                .then( user => {
+                    context.commit(mutationTypes.updateCurrentUserSuccess, user)
+                    resolve(user)
                 })
                 .catch( () => {
                     context.commit(mutationTypes.updateCurrentUserFailure)

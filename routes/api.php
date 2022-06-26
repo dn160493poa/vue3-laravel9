@@ -7,6 +7,7 @@ use App\Http\Controllers\Post\ShowController;
 use App\Http\Controllers\Post\StoreController;
 use App\Http\Controllers\Post\UpdateController;
 use App\Http\Controllers\User\UpdateController as UpdateUserController;
+use App\Http\Controllers\Post\Like\StoreController as LikeStoreController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -41,6 +42,10 @@ Route::group(['middleware' => 'auth:api'], function (){
         Route::delete('/{post}', [DeleteController::class, '__invoke']);
         Route::post('/', [StoreController::class, '__invoke']);
         Route::patch('/{post}', [UpdateController::class, '__invoke']);
+
+        Route::group(['namespace' => 'Like', 'prefix' => '{post}/like'], function (){
+            Route::post('/', [LikeStoreController::class, '__invoke']);
+        });
     });
 
     Route::group(['namespace' => 'User', 'prefix' => 'user'], function (){

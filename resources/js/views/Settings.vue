@@ -46,7 +46,7 @@
                                 type="submit"
                                 class="btn btn-lg btn-primary float-sm-end"
                                 :disabled="isSubmitting"
-                            >Update settings
+                            >Update
                             </button>
                         </fieldset>
                     </form>
@@ -83,10 +83,10 @@ export default {
         }),
         form() {
             return {
-                id: this.currentUser.id,
-                name: this.currentUser.name,
-                avatar_image: this.currentUser.avatar_image,
-                email: this.currentUser.email,
+                id: this.currentUser.user.id,
+                name: this.currentUser.user.name,
+                avatar_image: this.currentUser.user.avatar_image,
+                email: this.currentUser.user.email,
                 password: ''
             }
         }

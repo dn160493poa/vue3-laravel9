@@ -21,9 +21,9 @@
                             <router-link :to="{ name: 'user.settings' }" class="nav-link" exact active-class="active">
                                 Settings
                             </router-link>
-                            <router-link :to="{ name: 'user.settings', params: {user: currentUser.name} }" class="nav-link">
-                                <img class="user-pic user-photo" :src="currentUser.avatar_image" alt="">
-                                &nbsp; {{ currentUser.name }}
+                            <router-link :to="{ name: 'user.settings', params: {user: currentUser.user.name} }" class="nav-link">
+                                <img class="user-pic user-photo" :src="currentUser.user.avatar_image" alt="">
+                                &nbsp; {{ currentUser.user.name }}
                             </router-link>
                         </template>
                         <template v-if="isAnonymous">

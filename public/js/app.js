@@ -19943,7 +19943,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     to: {
       name: 'user.settings',
       params: {
-        user: _ctx.currentUser.name
+        user: _ctx.currentUser.user.name
       }
     },
     "class": "nav-link"
@@ -19951,11 +19951,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
         "class": "user-pic user-photo",
-        src: _ctx.currentUser.avatar_image,
+        src: _ctx.currentUser.user.avatar_image,
         alt: ""
       }, null, 8
       /* PROPS */
-      , _hoisted_11), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("   " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.currentUser.name), 1
+      , _hoisted_11), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("   " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.currentUser.user.name), 1
       /* TEXT */
       )];
     }),
@@ -20154,6 +20154,32 @@ var getFeed = function getFeed(apiUrl) {
 
 /***/ }),
 
+/***/ "./resources/js/api/toggleFavorite.js":
+/*!********************************************!*\
+  !*** ./resources/js/api/toggleFavorite.js ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./axios */ "./resources/js/api/axios.js");
+
+
+var toggleFavorite = function toggleFavorite(postId) {
+  return _axios__WEBPACK_IMPORTED_MODULE_0__["default"].post("/api/post/".concat(postId, "/like")).then(function (res) {
+    res.data.post;
+  });
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  toggleFavorite: toggleFavorite
+});
+
+/***/ }),
+
 /***/ "./resources/js/app.js":
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
@@ -20318,13 +20344,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
 /* harmony import */ var _modules_auth__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/auth */ "./resources/js/store/modules/auth.js");
 /* harmony import */ var _modules_feed__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/feed */ "./resources/js/store/modules/feed.js");
 /* harmony import */ var _modules_article__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/article */ "./resources/js/store/modules/article.js");
 /* harmony import */ var _modules_createArticle__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/createArticle */ "./resources/js/store/modules/createArticle.js");
 /* harmony import */ var _modules_editArticle__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/editArticle */ "./resources/js/store/modules/editArticle.js");
 /* harmony import */ var _modules_settings__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/settings */ "./resources/js/store/modules/settings.js");
+/* harmony import */ var _modules_toggleFavorite__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/toggleFavorite */ "./resources/js/store/modules/toggleFavorite.js");
 
 
 
@@ -20332,7 +20359,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,vuex__WEBPACK_IMPORTED_MODULE_6__.createStore)({
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
   state: {},
   getters: {},
   mutations: {},
@@ -20343,7 +20371,8 @@ __webpack_require__.r(__webpack_exports__);
     article: _modules_article__WEBPACK_IMPORTED_MODULE_2__["default"],
     createArticle: _modules_createArticle__WEBPACK_IMPORTED_MODULE_3__["default"],
     editArticle: _modules_editArticle__WEBPACK_IMPORTED_MODULE_4__["default"],
-    settings: _modules_settings__WEBPACK_IMPORTED_MODULE_5__["default"]
+    settings: _modules_settings__WEBPACK_IMPORTED_MODULE_5__["default"],
+    toggleFavorite: _modules_toggleFavorite__WEBPACK_IMPORTED_MODULE_6__["default"]
   }
 }));
 
@@ -20559,9 +20588,9 @@ var actions = (_actions = {}, _defineProperty(_actions, actionTypes.register, fu
   var userData = _ref.userData;
   return new Promise(function (resolve) {
     context.commit(mutationTypes.updateCurrentUserStart);
-    _api_auth__WEBPACK_IMPORTED_MODULE_0__["default"].updateCurrentUser(userData).then(function (res) {
-      context.commit(mutationTypes.updateCurrentUserSuccess, res.data);
-      resolve(res.data);
+    _api_auth__WEBPACK_IMPORTED_MODULE_0__["default"].updateCurrentUser(userData).then(function (user) {
+      context.commit(mutationTypes.updateCurrentUserSuccess, user);
+      resolve(user);
     })["catch"](function () {
       context.commit(mutationTypes.updateCurrentUserFailure);
     });
@@ -20825,6 +20854,57 @@ var mutations = (_mutations = {}, _defineProperty(_mutations, _auth__WEBPACK_IMP
 }), _mutations);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   state: state,
+  mutations: mutations
+});
+
+/***/ }),
+
+/***/ "./resources/js/store/modules/toggleFavorite.js":
+/*!******************************************************!*\
+  !*** ./resources/js/store/modules/toggleFavorite.js ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "actionTypes": () => (/* binding */ actionTypes),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   "mutationTypes": () => (/* binding */ mutationTypes)
+/* harmony export */ });
+/* harmony import */ var _api_toggleFavorite__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../api/toggleFavorite */ "./resources/js/api/toggleFavorite.js");
+var _mutations;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+var mutationTypes = {
+  toggleToFavoriteStart: '[toggleToFavorite] Toggle to favorite start',
+  toggleToFavoriteSuccess: '[toggleToFavorite] Toggle to favorite success',
+  toggleToFavoriteFailure: '[toggleToFavorite] Toggle to favorite failure'
+};
+var actionTypes = {
+  toggleToFavorite: '[toggleToFavorite] Toggle to favorite'
+};
+var mutations = (_mutations = {}, _defineProperty(_mutations, mutationTypes.toggleToFavoriteStart, function () {}), _defineProperty(_mutations, mutationTypes.toggleToFavoriteSuccess, function () {}), _defineProperty(_mutations, mutationTypes.toggleToFavoriteFailure, function () {}), _mutations);
+
+var actions = _defineProperty({}, actionTypes.toggleToFavorite, function (context, _ref) {
+  var postId = _ref.postId;
+  return new Promise(function (resolve) {
+    context.commit(mutationTypes.toggleToFavoriteStart);
+    _api_toggleFavorite__WEBPACK_IMPORTED_MODULE_0__["default"].toggleFavorite(postId).then(function (res) {
+      context.commit(mutationTypes.toggleToFavoriteSuccess, res);
+      resolve(res);
+      console.log(res);
+    })["catch"](function (error) {
+      context.commit(mutationTypes.toggleToFavoriteFailure, error);
+      resolve(error);
+    });
+  });
+});
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  actions: actions,
   mutations: mutations
 });
 

@@ -19,10 +19,12 @@
 
                     </div>
                     <div class="float-end">
-                        <button class="btn btn-sm btn-outline-success">
-                            <i class="ion-heart"></i>
-                            <span class="ng-binding ng-scope"> 1429</span>
-                        </button>
+                        <mcv-add-to-favorite
+                            :is-favorited="article.favorited"
+                            :article-id="article.id"
+                            :likes="article.likes"
+                        >
+                        </mcv-add-to-favorite>
                     </div>
                 </div>
                 <router-link :to="{ name: 'article.show', params: {slug: article.slug, postId: article.id}}" class="preview-link">
@@ -51,6 +53,7 @@ import {stringify, parseUrl} from 'query-string'
 import McvLoading from "./Loading";
 import McvErrorMessage from "./ErrorMessage";
 import McvTagList from "../components/TagList";
+import McvAddToFavorite from "../components/AddToFavorite"
 
 export default {
     name: "McvFeed",
@@ -58,7 +61,8 @@ export default {
         McvPagination,
         McvLoading,
         McvErrorMessage,
-        McvTagList
+        McvTagList,
+        McvAddToFavorite
     },
 
     props: {

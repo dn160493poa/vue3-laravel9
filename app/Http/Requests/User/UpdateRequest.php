@@ -28,7 +28,7 @@ class UpdateRequest extends FormRequest
             'userData.name' => 'string|unique:users,name,' . $this->user()->id,
             'userData.email' => 'string|unique:users,email,' . $this->user()->id,
             'userData.avatar_image' => 'nullable|string',
-            'userData.password' => 'nullable|string'
+            'userData.password' => 'nullable|string|between:8,20'
         ];
     }
 }
