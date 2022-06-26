@@ -35,7 +35,7 @@ export default {
           return this.$route.params.slug
       },
       apiUrl(){
-        return `/api/posts?tag=${this.tagName}`
+        return `/api/post?tag=${this.tagName}`
       }
     }
 }

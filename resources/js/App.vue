@@ -19,7 +19,7 @@ export default {
 
     data() {
         return {
-            title: 'How To Install Vue 3 in Laravel 9 From Scratch'
+            title: 'Vue 3 & Laravel 9'
         }
     },
 }

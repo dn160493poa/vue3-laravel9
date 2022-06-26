@@ -50,8 +50,6 @@ export default {
     mounted() {
         this.$store.dispatch(actionTypes.getArticle, {
             postId: this.$route.params.postId
-        }).then(res => {
-            console.log(res)
         })
     },
 

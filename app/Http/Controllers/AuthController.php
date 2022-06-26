@@ -56,7 +56,7 @@ class AuthController extends Controller
         }
 
         $token = auth()->attempt($data);
-        return response()->json(['access_token' => $token, 'user' => auth()->user()->name]);
+        return response()->json(['access_token' => $token, 'user' => auth()->user()]);
     }
 
     /**

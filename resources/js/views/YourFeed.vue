@@ -32,7 +32,7 @@ export default {
 
   data() {
     return {
-      apiUrl: '/api/posts'
+      apiUrl: '/api/post'
     }
   }
 }

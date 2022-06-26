@@ -18,12 +18,12 @@
                             <router-link :to="{ name: 'article.store' }" class="nav-link" exact active-class="active">
                                 New Article
                             </router-link>
-                            <router-link :to="{ name: 'globalFeed' }" class="nav-link" exact active-class="active">
+                            <router-link :to="{ name: 'user.settings' }" class="nav-link" exact active-class="active">
                                 Settings
                             </router-link>
-                            <router-link :to="{ name: 'globalFeed', params: {slug: currentUser.user} }" class="nav-link" exact active-class="active">
+                            <router-link :to="{ name: 'user.settings', params: {user: currentUser.name} }" class="nav-link">
                                 <img class="user-pic user-photo" :src="currentUser.avatar_image" alt="">
-                                &nbsp; {{ currentUser.user }}
+                                &nbsp; {{ currentUser.name }}
                             </router-link>
                         </template>
                         <template v-if="isAnonymous">

@@ -20,8 +20,14 @@ const getCurrentUser = () => {
     return api.post('/api/auth/me')
 }
 
+const updateCurrentUser = userData => {
+    return api.patch(`/api/user/${userData.id}`, {userData})
+        .then(res => res.data)
+}
+
 export default {
     register,
     login,
-    getCurrentUser
+    getCurrentUser,
+    updateCurrentUser
 }

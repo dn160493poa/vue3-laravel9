@@ -19732,7 +19732,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      title: 'How To Install Vue 3 in Laravel 9 From Scratch'
+      title: 'Vue 3 & Laravel 9'
     };
   }
 });
@@ -19925,7 +19925,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* PROPS */
   , ["to"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
     to: {
-      name: 'globalFeed'
+      name: 'user.settings'
     },
     "class": "nav-link",
     exact: "",
@@ -19937,16 +19937,16 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
     /* STABLE */
 
-  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
+  }, 8
+  /* PROPS */
+  , ["to"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
     to: {
-      name: 'globalFeed',
+      name: 'user.settings',
       params: {
-        slug: _ctx.currentUser.user
+        user: _ctx.currentUser.name
       }
     },
-    "class": "nav-link",
-    exact: "",
-    "active-class": "active"
+    "class": "nav-link"
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
@@ -19955,7 +19955,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         alt: ""
       }, null, 8
       /* PROPS */
-      , _hoisted_11), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("   " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.currentUser.user), 1
+      , _hoisted_11), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("   " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.currentUser.name), 1
       /* TEXT */
       )];
     }),
@@ -20020,11 +20020,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var getArticle = function getArticle(postId) {
-  return _axios__WEBPACK_IMPORTED_MODULE_0__["default"].get("/api/posts/".concat(postId));
+  return _axios__WEBPACK_IMPORTED_MODULE_0__["default"].get("/api/post/".concat(postId));
 };
 
 var deleteArticle = function deleteArticle(postId) {
-  return _axios__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"]("/api/posts/".concat(postId), {
+  return _axios__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"]("/api/post/".concat(postId), {
     data: {
       post: postId
     }
@@ -20032,13 +20032,13 @@ var deleteArticle = function deleteArticle(postId) {
 };
 
 var createArticle = function createArticle(articleData) {
-  return _axios__WEBPACK_IMPORTED_MODULE_0__["default"].post('/api/posts', {
+  return _axios__WEBPACK_IMPORTED_MODULE_0__["default"].post('/api/post', {
     data: articleData
   });
 };
 
 var updateArticle = function updateArticle(postId, articleData) {
-  return _axios__WEBPACK_IMPORTED_MODULE_0__["default"].patch("/api/posts/".concat(postId), {
+  return _axios__WEBPACK_IMPORTED_MODULE_0__["default"].patch("/api/post/".concat(postId), {
     post: postId,
     data: articleData
   });
@@ -20087,10 +20087,19 @@ var getCurrentUser = function getCurrentUser() {
   return _axios__WEBPACK_IMPORTED_MODULE_0__["default"].post('/api/auth/me');
 };
 
+var updateCurrentUser = function updateCurrentUser(userData) {
+  return _axios__WEBPACK_IMPORTED_MODULE_0__["default"].patch("/api/user/".concat(userData.id), {
+    userData: userData
+  }).then(function (res) {
+    return res.data;
+  });
+};
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   register: register,
   login: login,
-  getCurrentUser: getCurrentUser
+  getCurrentUser: getCurrentUser,
+  updateCurrentUser: updateCurrentUser
 });
 
 /***/ }),
@@ -20275,7 +20284,7 @@ var routes = [{
   path: '/settings',
   name: 'user.settings',
   component: function component() {
-    return __webpack_require__.e(/*! import() | about */ "about").then(__webpack_require__.bind(__webpack_require__, /*! ../views/GlobalFeed */ "./resources/js/views/GlobalFeed.vue"));
+    return __webpack_require__.e(/*! import() | about */ "about").then(__webpack_require__.bind(__webpack_require__, /*! ../views/Settings */ "./resources/js/views/Settings.vue"));
   }
 }, {
   path: '/profile/:userId',
@@ -20309,19 +20318,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
 /* harmony import */ var _modules_auth__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/auth */ "./resources/js/store/modules/auth.js");
 /* harmony import */ var _modules_feed__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/feed */ "./resources/js/store/modules/feed.js");
 /* harmony import */ var _modules_article__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/article */ "./resources/js/store/modules/article.js");
 /* harmony import */ var _modules_createArticle__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/createArticle */ "./resources/js/store/modules/createArticle.js");
 /* harmony import */ var _modules_editArticle__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/editArticle */ "./resources/js/store/modules/editArticle.js");
+/* harmony import */ var _modules_settings__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/settings */ "./resources/js/store/modules/settings.js");
 
 
 
 
 
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,vuex__WEBPACK_IMPORTED_MODULE_5__.createStore)({
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,vuex__WEBPACK_IMPORTED_MODULE_6__.createStore)({
   state: {},
   getters: {},
   mutations: {},
@@ -20331,7 +20342,8 @@ __webpack_require__.r(__webpack_exports__);
     feed: _modules_feed__WEBPACK_IMPORTED_MODULE_1__["default"],
     article: _modules_article__WEBPACK_IMPORTED_MODULE_2__["default"],
     createArticle: _modules_createArticle__WEBPACK_IMPORTED_MODULE_3__["default"],
-    editArticle: _modules_editArticle__WEBPACK_IMPORTED_MODULE_4__["default"]
+    editArticle: _modules_editArticle__WEBPACK_IMPORTED_MODULE_4__["default"],
+    settings: _modules_settings__WEBPACK_IMPORTED_MODULE_5__["default"]
   }
 }));
 
@@ -20450,7 +20462,11 @@ var mutationTypes = {
   loginFailure: '[auth] loginFailure',
   getCurrentUserStart: '[auth] getCurrentUserStart',
   getCurrentUserSuccess: '[auth] getCurrentUserSuccess',
-  getCurrentUserFailure: '[auth] getCurrentUserFailure'
+  getCurrentUserFailure: '[auth] getCurrentUserFailure',
+  updateCurrentUserStart: '[auth] updateCurrentUserStart',
+  updateCurrentUserSuccess: '[auth] updateCurrentUserSuccess',
+  updateCurrentUserFailure: '[auth] updateCurrentUserFailure',
+  logout: '[auth] logout'
 };
 var mutations = (_mutations = {}, _defineProperty(_mutations, mutationTypes.registerStart, function (state) {
   state.isSubmitting = true;
@@ -20482,11 +20498,18 @@ var mutations = (_mutations = {}, _defineProperty(_mutations, mutationTypes.regi
   state.isLoading = false;
   state.isLoggedIn = false;
   state.currenUser = null;
+}), _defineProperty(_mutations, mutationTypes.updateCurrentUserStart, function () {}), _defineProperty(_mutations, mutationTypes.updateCurrentUserSuccess, function (state, payload) {
+  state.currentUser = payload;
+}), _defineProperty(_mutations, mutationTypes.updateCurrentUserFailure, function () {}), _defineProperty(_mutations, mutationTypes.logout, function (state) {
+  state.currentUser = null;
+  state.isLoggedIn = false;
 }), _mutations);
 var actionTypes = {
   register: '[auth] register',
   login: '[auth] login',
-  getCurrentUser: '[auth] getCurrentUser'
+  getCurrentUser: '[auth] getCurrentUser',
+  updateCurrentUser: '[auth] updateCurrentUser',
+  logout: '[auth] logout'
 };
 var gettersType = {
   currentUser: '[auth] currentUser',
@@ -20531,6 +20554,23 @@ var actions = (_actions = {}, _defineProperty(_actions, actionTypes.register, fu
     })["catch"](function () {
       context.commit(mutationTypes.getCurrentUserFailure);
     });
+  });
+}), _defineProperty(_actions, actionTypes.updateCurrentUser, function (context, _ref) {
+  var userData = _ref.userData;
+  return new Promise(function (resolve) {
+    context.commit(mutationTypes.updateCurrentUserStart);
+    _api_auth__WEBPACK_IMPORTED_MODULE_0__["default"].updateCurrentUser(userData).then(function (res) {
+      context.commit(mutationTypes.updateCurrentUserSuccess, res.data);
+      resolve(res.data);
+    })["catch"](function () {
+      context.commit(mutationTypes.updateCurrentUserFailure);
+    });
+  });
+}), _defineProperty(_actions, actionTypes.logout, function (context) {
+  return new Promise(function (resolve) {
+    (0,_helpers_persistanceStorage__WEBPACK_IMPORTED_MODULE_1__.setItem)('access_token', '');
+    context.commit(mutationTypes.logout);
+    resolve();
   });
 }), _actions);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -20748,6 +20788,43 @@ var actions = _defineProperty({}, actionTypes.getFeed, function (context, _ref) 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   state: state,
   actions: actions,
+  mutations: mutations
+});
+
+/***/ }),
+
+/***/ "./resources/js/store/modules/settings.js":
+/*!************************************************!*\
+  !*** ./resources/js/store/modules/settings.js ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _auth__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./auth */ "./resources/js/store/modules/auth.js");
+var _mutations;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+var state = {
+  isSubmitting: false,
+  validationErrors: null
+};
+var mutations = (_mutations = {}, _defineProperty(_mutations, _auth__WEBPACK_IMPORTED_MODULE_0__.mutationTypes.updateCurrentUserStart, function (state) {
+  state.isSubmitting = true;
+  state.validationErrors = null;
+}), _defineProperty(_mutations, _auth__WEBPACK_IMPORTED_MODULE_0__.mutationTypes.updateCurrentUserSuccess, function (state) {
+  state.isSubmitting = false;
+}), _defineProperty(_mutations, _auth__WEBPACK_IMPORTED_MODULE_0__.mutationTypes.updateCurrentUserFailure, function (state, payload) {
+  state.isSubmitting = false;
+  state.validationErrors = payload;
+}), _mutations);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  state: state,
   mutations: mutations
 });
 

@@ -44,7 +44,7 @@ const routes = [
     {
         path: '/settings',
         name: 'user.settings',
-        component: () => import(/* webpackChunkName: "about" */ '../views/GlobalFeed')
+        component: () => import(/* webpackChunkName: "about" */ '../views/Settings')
     },
     {
         path: '/profile/:userId',
