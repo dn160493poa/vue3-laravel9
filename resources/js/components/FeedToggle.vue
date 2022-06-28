@@ -61,7 +61,7 @@ export default {
 
 <style scoped>
 .nav-pills.outline-active .nav-link {
-  border-radius: 0px;
+  border-radius: 0;
   border: none;
   border-bottom: 2px solid transparent;
   background: transparent;
@@ -70,8 +70,8 @@ export default {
   color: #555; }
 .nav-pills.outline-active .nav-link.active {
   background: #fff !important;
-  border-bottom: 2px solid #5CB85C !important;
-  color: #5CB85C !important; }
+  border-bottom: 2px solid #431987 !important;
+  color: #431987 !important; }
 
 .nav-pills::after {
   content: "";
@@ -94,6 +94,6 @@ export default {
 .nav-pills .nav-item.open .nav-link:hover {
   color: #fff;
   cursor: default;
-  background-color: #5CB85C; }
+  background-color: #431987; }
 
 </style>

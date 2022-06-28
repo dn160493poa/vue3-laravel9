@@ -49,12 +49,12 @@ const routes = [
     {
         path: '/profile/:userId',
         name: 'user.profile',
-        component: () => import(/* webpackChunkName: "about" */ '../views/GlobalFeed')
+        component: () => import(/* webpackChunkName: "about" */ '../views/UserProfile')
     },
     {
-        path: '/profile/:slug/favorites',
+        path: '/profile/:userId/favorites',
         name: 'user.favorites',
-        component: () => import(/* webpackChunkName: "about" */ '../views/GlobalFeed')
+        component: () => import(/* webpackChunkName: "about" */ '../views/UserProfile')
     }
 ]
 

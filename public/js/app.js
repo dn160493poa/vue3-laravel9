@@ -19834,7 +19834,7 @@ var _hoisted_3 = {
   "class": "container-fluid"
 };
 
-var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" MediumCLone ");
+var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" DemoBlog ");
 
 var _hoisted_5 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
@@ -19868,7 +19868,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     to: {
       name: 'globalFeed'
     },
-    "class": "navbar-brand"
+    "class": "navbar-brand boldest"
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [_hoisted_4];
@@ -19941,9 +19941,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* PROPS */
   , ["to"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
     to: {
-      name: 'user.settings',
+      name: 'user.profile',
       params: {
-        user: _ctx.currentUser.user.name
+        userId: _ctx.currentUser.user.id
       }
     },
     "class": "nav-link"
@@ -20180,6 +20180,30 @@ var toggleFavorite = function toggleFavorite(postId) {
 
 /***/ }),
 
+/***/ "./resources/js/api/userProfile.js":
+/*!*****************************************!*\
+  !*** ./resources/js/api/userProfile.js ***!
+  \*****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./axios */ "./resources/js/api/axios.js");
+
+
+var getUserProfile = function getUserProfile(userId) {
+  return _axios__WEBPACK_IMPORTED_MODULE_0__["default"].get("/profiles/".concat(userId));
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  getUserProfile: getUserProfile
+});
+
+/***/ }),
+
 /***/ "./resources/js/app.js":
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
@@ -20316,13 +20340,13 @@ var routes = [{
   path: '/profile/:userId',
   name: 'user.profile',
   component: function component() {
-    return __webpack_require__.e(/*! import() | about */ "about").then(__webpack_require__.bind(__webpack_require__, /*! ../views/GlobalFeed */ "./resources/js/views/GlobalFeed.vue"));
+    return __webpack_require__.e(/*! import() | about */ "about").then(__webpack_require__.bind(__webpack_require__, /*! ../views/UserProfile */ "./resources/js/views/UserProfile.vue"));
   }
 }, {
-  path: '/profile/:slug/favorites',
+  path: '/profile/:userId/favorites',
   name: 'user.favorites',
   component: function component() {
-    return __webpack_require__.e(/*! import() | about */ "about").then(__webpack_require__.bind(__webpack_require__, /*! ../views/GlobalFeed */ "./resources/js/views/GlobalFeed.vue"));
+    return __webpack_require__.e(/*! import() | about */ "about").then(__webpack_require__.bind(__webpack_require__, /*! ../views/UserProfile */ "./resources/js/views/UserProfile.vue"));
   }
 }];
 var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_0__.createRouter)({
@@ -20344,7 +20368,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
 /* harmony import */ var _modules_auth__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/auth */ "./resources/js/store/modules/auth.js");
 /* harmony import */ var _modules_feed__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/feed */ "./resources/js/store/modules/feed.js");
 /* harmony import */ var _modules_article__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/article */ "./resources/js/store/modules/article.js");
@@ -20352,6 +20376,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_editArticle__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/editArticle */ "./resources/js/store/modules/editArticle.js");
 /* harmony import */ var _modules_settings__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/settings */ "./resources/js/store/modules/settings.js");
 /* harmony import */ var _modules_toggleFavorite__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/toggleFavorite */ "./resources/js/store/modules/toggleFavorite.js");
+/* harmony import */ var _modules_userProfile__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/userProfile */ "./resources/js/store/modules/userProfile.js");
 
 
 
@@ -20360,7 +20385,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,vuex__WEBPACK_IMPORTED_MODULE_8__.createStore)({
   state: {},
   getters: {},
   mutations: {},
@@ -20372,7 +20398,8 @@ __webpack_require__.r(__webpack_exports__);
     createArticle: _modules_createArticle__WEBPACK_IMPORTED_MODULE_3__["default"],
     editArticle: _modules_editArticle__WEBPACK_IMPORTED_MODULE_4__["default"],
     settings: _modules_settings__WEBPACK_IMPORTED_MODULE_5__["default"],
-    toggleFavorite: _modules_toggleFavorite__WEBPACK_IMPORTED_MODULE_6__["default"]
+    toggleFavorite: _modules_toggleFavorite__WEBPACK_IMPORTED_MODULE_6__["default"],
+    userProfile: _modules_userProfile__WEBPACK_IMPORTED_MODULE_7__["default"]
   }
 }));
 
@@ -20910,6 +20937,70 @@ var actions = _defineProperty({}, actionTypes.toggleToFavorite, function (contex
 
 /***/ }),
 
+/***/ "./resources/js/store/modules/userProfile.js":
+/*!***************************************************!*\
+  !*** ./resources/js/store/modules/userProfile.js ***!
+  \***************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "actionTypes": () => (/* binding */ actionTypes),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   "mutationTypes": () => (/* binding */ mutationTypes)
+/* harmony export */ });
+/* harmony import */ var _api_userProfile__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../api/userProfile */ "./resources/js/api/userProfile.js");
+var _mutations;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+var state = {
+  data: null,
+  isLoading: false,
+  error: null
+};
+var mutationTypes = {
+  getUserProfileStart: '[userProfile] Get user profile start',
+  getUserProfileSuccess: '[userProfile] Get user profile success',
+  getUserProfileFailure: '[userProfile] Get user profile failure'
+};
+var actionTypes = {
+  getUserProfile: '[userProfile] Get user profile'
+};
+var mutations = (_mutations = {}, _defineProperty(_mutations, mutationTypes.getUserProfileStart, function (state) {
+  state.isLoading = true;
+  state.data = null;
+}), _defineProperty(_mutations, mutationTypes.getUserProfileSuccess, function (state, payload) {
+  state.isLoading = false;
+  state.data = payload;
+}), _defineProperty(_mutations, mutationTypes.getUserProfileFailure, function (state) {
+  state.isLoading = false;
+}), _mutations);
+
+var actions = _defineProperty({}, actionTypes.getUserProfile, function (context, _ref) {
+  var userId = _ref.userId;
+  return new Promise(function (resolve) {
+    context.commit(mutationTypes.getUserProfileStart);
+    _api_userProfile__WEBPACK_IMPORTED_MODULE_0__["default"].getUserProfile(userId).then(function (user) {
+      context.commit(mutationTypes.getUserProfileSuccess, user);
+      resolve(user);
+    })["catch"](function (error) {
+      context.commit(mutationTypes.getUserProfileFailure);
+      resolve(error);
+    });
+  });
+});
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  state: state,
+  mutations: mutations,
+  actions: actions
+});
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-10.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-10.use[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/TopBar.vue?vue&type=style&index=0&id=374685a9&scoped=true&lang=css":
 /*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-10.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-10.use[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/TopBar.vue?vue&type=style&index=0&id=374685a9&scoped=true&lang=css ***!
@@ -20927,7 +21018,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.navbar-brand[data-v-374685a9] {\n        color: #5CB85C !important;\n}\n.nav-link .user-pic[data-v-374685a9] {\n        height: 26px;\n        border-radius: 50px;\n        float: left;\n        margin-right: 5px;\n}\n\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.navbar-brand[data-v-374685a9] {\n        color: #431987 !important;\n}\n.boldest[data-v-374685a9]{\n        font-weight: 800;\n}\n.nav-link .user-pic[data-v-374685a9] {\n        height: 26px;\n        border-radius: 50px;\n        float: left;\n        margin-right: 5px;\n}\n\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

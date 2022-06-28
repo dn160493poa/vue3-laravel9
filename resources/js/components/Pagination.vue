@@ -78,8 +78,8 @@ export default {
         z-index: 2;
         color: #fff;
         cursor: default;
-        background-color: #5CB85C;
-        border-color: #5CB85C; }
+        background-color: #431987;
+        border-color: #431987; }
     .page-item.disabled .page-link, .page-item.disabled .page-link:focus, .page-item.disabled .page-link:hover {
         color: #818a91;
         pointer-events: none;

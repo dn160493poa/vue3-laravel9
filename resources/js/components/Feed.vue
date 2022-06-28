@@ -99,6 +99,9 @@ export default {
     watch: {
         currentPage() {
             this.fetchFeed()
+        },
+        apiUrl(){
+            this.fetchFeed()
         }
     },
 
@@ -181,7 +184,6 @@ export default {
     font-size: 24px;
     color: #999;
     margin-bottom: 15px;
-    font-size: 1rem;
     line-height: 1.3rem;
 }
 
@@ -218,7 +220,7 @@ export default {
 }
 
 a {
-    color: #5CB85C;
+    color: #431987;
     text-decoration: none;
     background-color: transparent;
 }

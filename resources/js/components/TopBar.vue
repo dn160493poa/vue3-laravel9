@@ -2,8 +2,8 @@
     <div class="container">
         <nav class="navbar navbar-expand-sm navbar-light">
             <div class="container-fluid">
-                  <router-link :to="{ name: 'globalFeed' }" class="navbar-brand">
-                    MediumCLone
+                  <router-link :to="{ name: 'globalFeed' }" class="navbar-brand boldest">
+                    DemoBlog
                   </router-link>
                 <button @click.prevent="collapseList" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -21,7 +21,7 @@
                             <router-link :to="{ name: 'user.settings' }" class="nav-link" exact active-class="active">
                                 Settings
                             </router-link>
-                            <router-link :to="{ name: 'user.settings', params: {user: currentUser.user.name} }" class="nav-link">
+                            <router-link :to="{ name: 'user.profile', params: {userId: currentUser.user.id} }" class="nav-link">
                                 <img class="user-pic user-photo" :src="currentUser.user.avatar_image" alt="">
                                 &nbsp; {{ currentUser.user.name }}
                             </router-link>
@@ -72,7 +72,11 @@ export default {
 
 <style scoped>
     .navbar-brand {
-        color: #5CB85C !important;
+        color: #431987 !important;
+    }
+
+    .boldest{
+        font-weight: 800;
     }
 
     .nav-link .user-pic {

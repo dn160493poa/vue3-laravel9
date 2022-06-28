@@ -17,6 +17,7 @@ class PostResource extends JsonResource
      */
     public function toArray($request)
     {
+        $user = auth()->user();
         return [
             'id' => $this->id,
             'createdAt' => $this->created_at,
@@ -27,7 +28,7 @@ class PostResource extends JsonResource
             'author' => new AuthorResource($this->author),
             'tags' => collect(TagResource::collection($this->tags))->collapse(),
             'likes' => $this->likes_count,
-            'favorited' => auth()->user()->likedPosts->contains($this->id)
+            'favorited' => isset($user) ? $user->likedPosts->contains($this->id) : false
         ];
     }
 }

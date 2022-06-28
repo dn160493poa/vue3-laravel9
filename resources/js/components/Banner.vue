@@ -23,7 +23,7 @@ export default {
     text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
     margin-bottom: 0px; }
 .home-page .banner {
-    background: #5CB85C;
+    background: #7349b8;
     box-shadow: inset 0 8px 8px -8px rgba(0, 0, 0, 0.3), inset 0 -8px 8px -8px rgba(0, 0, 0, 0.3); }
 .home-page .banner p {
     color: #fff;
