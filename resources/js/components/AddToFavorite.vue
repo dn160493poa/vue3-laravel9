@@ -1,5 +1,6 @@
 <template>
     <button
+        v-if="isLoggedIn"
         class="btn btn-sm"
         :class="{
             'btn-outline-success': isFavoriteOptimistic,
@@ -10,10 +11,19 @@
         <i class="ion-heart"></i>
         <span class="ng-binding ng-scope">&nbsp; {{ likesOptimistic }}</span>
     </button>
+    <button
+        v-else
+        class="btn btn-sm btn-outline-secondary"
+    >
+        <i class="ion-heart"></i>
+        <span class="ng-binding ng-scope">&nbsp; {{ likesOptimistic }}</span>
+    </button>
 </template>
 
 <script>
 import {actionTypes} from "../store/modules/toggleFavorite";
+import {mapGetters} from "vuex";
+import {gettersType} from "../store/modules/auth";
 
 export default {
     name: "McvAddToFavorite",
@@ -37,6 +47,13 @@ export default {
             isFavoriteOptimistic: this.isFavorited,
             likesOptimistic: this.likes
         }
+    },
+
+    computed: {
+        ...mapGetters({
+            isLoggedIn: gettersType.isLoggedIn,
+            isAnonymous: gettersType.isAnonymous
+        }),
     },
 
     methods: {

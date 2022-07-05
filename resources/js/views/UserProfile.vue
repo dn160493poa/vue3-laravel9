@@ -7,10 +7,10 @@
             <div class="container">
                 <div class="row">
                     <div class="col-sm-12 col-md-10 offset-md-1">
-                        <img class="user-img" :src="userProfile.avatar_image" alt="">
-                        <h4>{{ userProfile.name }}</h4>
+                        <img class="user-img" :src="userProfile.user.avatar_image" alt="">
+                        <h4>{{ userProfile.user.name }}</h4>
+                        <p>About User</p>
                         <div>
-                            FOLLOW USER BUTTON
                             <router-link
                                 v-if="isCurrentUserProfile"
                                 :to="{ 'name': 'user.settings' }"
@@ -26,23 +26,22 @@
                 <div class="col-sm-12 col-md-10 offset-md-1">
                     <div class="article-toggle">
                         <ul class="nav nav-pills outline-active">
-                            <li class="nav-item">
-                                {{userProfile}}
+<!--                            <li class="nav-item">-->
 <!--                                <router-link-->
 <!--                                    class="nav-link"-->
 <!--                                    :class="{active: routeName === 'user.profile' }"-->
-<!--                                    :to="{ 'name': 'user.profile', params: { 'userId': userProfile.id }}">-->
+<!--                                    :to="{ 'name': 'user.profile', params: { 'userId': userProfile.user.id }}">-->
 <!--                                    My Post-->
 <!--                                </router-link>-->
-                            </li>
-                            <li class="nav-item">
+<!--                            </li>-->
+<!--                            <li class="nav-item">-->
 <!--                                <router-link-->
 <!--                                    class="nav-link"-->
-                                <!--                                    :class="{active: routeName === 'user.favorites' }"-->
-<!--                                    :to="{ 'name': 'user.favorites', params: { 'userId': userProfile.id }}">-->
+<!--                                                                    :class="{active: routeName === 'user.favorites' }"-->
+<!--                                    :to="{ 'name': 'user.favorites', params: { 'userId': userProfile.user.id }}">-->
 <!--                                    Favorites Post-->
 <!--                                </router-link>-->
-                            </li>
+<!--                            </li>-->
                         </ul>
                     </div>
                     <mcv-feed :api-url="apiUrl"></mcv-feed>
@@ -97,11 +96,12 @@ export default {
     },
 
     mounted() {
-        this.getUserProfile
+        this.getUserProfile()
     },
 
     methods: {
         getUserProfile(){
+            console.log('------')
             this.$store.dispatch(userProfileActionTypes.getUserProfile, {
                 userId: this.userProfileId
             })

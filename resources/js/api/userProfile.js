@@ -1,7 +1,7 @@
-import axios from "./axios";
+import api from "./axios";
 
 const getUserProfile = userId => {
-    return axios.get(`/profiles/${userId}`)
+    return api.get(`/api/profile/${userId}`)
 }
 
 export default {

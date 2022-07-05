@@ -5,7 +5,7 @@
                 <div class="col-md-6 offset-md-3 col-xs-12">
                     <h1 class="text-center">Sing Up</h1>
                     <p class="text-center">
-                        <router-link :to="{ name: 'login' }" class="text-decoration-none text-success">Already register?</router-link>
+                        <router-link :to="{ name: 'login' }" class="text-decoration-none m-color">Already register?</router-link>
                     </p>
                     <McvValidationErrors
                         v-if="validationErrors"
@@ -17,7 +17,7 @@
                                 v-model="name"
                                 type="text"
                                 class="form-control form-control-lg"
-                                placeholder="UserName">
+                                placeholder="Name">
                         </fieldset>
                         <fieldset class="form-group">
                             <input
@@ -40,7 +40,7 @@
                                 class="form-control form-control-lg"
                                 placeholder="Re-enter password">
                         </fieldset>
-                        <button class="btn btn-lg btn-success float-end"
+                        <button class="btn btn-lg btn-d float-end"
                                 :disabled="isSubmitting">Sing Up</button>
                     </form>
                 </div>
@@ -97,5 +97,14 @@ export default {
 <style scoped>
     .form-group {
         margin-bottom: 1rem;
+    }
+
+    .m-color{
+        color: #7f4ecd;
+    }
+
+    .btn-d{
+        background: #7f4ecd;
+        color: white;
     }
 </style>

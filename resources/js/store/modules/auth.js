@@ -1,5 +1,5 @@
 import authApi from './../../api/auth'
-import {setItem} from '../../helpers/persistanceStorage'
+import {deleteItem, setItem} from '../../helpers/persistanceStorage'
 
 const state = {
     isSubmitting: false,
@@ -143,7 +143,8 @@ const actions = {
                     context.commit(mutationTypes.getCurrentUserSuccess, res.data)
                     resolve(res.data)
                 })
-                .catch( () => {
+                .catch(() => {
+                    deleteItem('access_token')
                     context.commit(mutationTypes.getCurrentUserFailure)
                 })
         })

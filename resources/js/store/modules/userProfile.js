@@ -35,9 +35,9 @@ const actions = {
         return new Promise(resolve => {
             context.commit(mutationTypes.getUserProfileStart)
             userProfileApi.getUserProfile(userId)
-                .then(user => {
-                    context.commit(mutationTypes.getUserProfileSuccess, user)
-                    resolve(user)
+                .then(res => {
+                    context.commit(mutationTypes.getUserProfileSuccess, res.data)
+                    resolve(res.data)
                 })
                 .catch(error => {
                     context.commit(mutationTypes.getUserProfileFailure)

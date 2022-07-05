@@ -20126,6 +20126,16 @@ api.interceptors.request.use(function (config) {
   config.headers.Authorization = token ? "Bearer ".concat(token) : '';
   return config;
 });
+api.interceptors.response.use(function (response) {
+  //console.log('Response:', JSON.stringify(response, null, 2))
+  //const error = err.response;
+  // if error is 401
+  if (response.status === 401 && response.config && !response.config.__isRetryRequest) {
+    (0,_helpers_persistanceStorage__WEBPACK_IMPORTED_MODULE_1__.deleteItem)('access_token');
+  }
+
+  return response;
+});
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (api);
 
 /***/ }),
@@ -20195,7 +20205,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var getUserProfile = function getUserProfile(userId) {
-  return _axios__WEBPACK_IMPORTED_MODULE_0__["default"].get("/profiles/".concat(userId));
+  return _axios__WEBPACK_IMPORTED_MODULE_0__["default"].get("/api/profile/".concat(userId));
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -20247,6 +20257,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "deleteItem": () => (/* binding */ deleteItem),
 /* harmony export */   "getItem": () => (/* binding */ getItem),
 /* harmony export */   "setItem": () => (/* binding */ setItem)
 /* harmony export */ });
@@ -20263,6 +20274,13 @@ var setItem = function setItem(key, data) {
     localStorage.setItem(key, JSON.stringify(data));
   } catch (e) {
     console.log('Error setting data to local storage');
+  }
+};
+var deleteItem = function deleteItem(key) {
+  try {
+    localStorage.removeItem(key);
+  } catch (e) {
+    console.log('Error deleting data from local storage');
   }
 };
 
@@ -20608,6 +20626,7 @@ var actions = (_actions = {}, _defineProperty(_actions, actionTypes.register, fu
       context.commit(mutationTypes.getCurrentUserSuccess, res.data);
       resolve(res.data);
     })["catch"](function () {
+      (0,_helpers_persistanceStorage__WEBPACK_IMPORTED_MODULE_1__.deleteItem)('access_token');
       context.commit(mutationTypes.getCurrentUserFailure);
     });
   });
@@ -20983,9 +21002,9 @@ var actions = _defineProperty({}, actionTypes.getUserProfile, function (context,
   var userId = _ref.userId;
   return new Promise(function (resolve) {
     context.commit(mutationTypes.getUserProfileStart);
-    _api_userProfile__WEBPACK_IMPORTED_MODULE_0__["default"].getUserProfile(userId).then(function (user) {
-      context.commit(mutationTypes.getUserProfileSuccess, user);
-      resolve(user);
+    _api_userProfile__WEBPACK_IMPORTED_MODULE_0__["default"].getUserProfile(userId).then(function (res) {
+      context.commit(mutationTypes.getUserProfileSuccess, res.data);
+      resolve(res.data);
     })["catch"](function (error) {
       context.commit(mutationTypes.getUserProfileFailure);
       resolve(error);

@@ -5,7 +5,7 @@
                 <div class="col-md-6 offset-md-3 col-xs-12">
                     <h1 class="text-center">Sing In</h1>
                     <p class="text-center">
-                        <router-link :to="{ name: 'register' }" class="text-decoration-none text-success">Need an account?</router-link>
+                        <router-link :to="{ name: 'register' }" class="text-decoration-none m-color">Need an account?</router-link>
                     </p>
                     <McvValidationErrors
                         v-if="validationErrors"
@@ -26,7 +26,7 @@
                                 class="form-control form-control-lg"
                                 placeholder="Password">
                         </fieldset>
-                        <button class="btn btn-lg btn-success float-end"
+                        <button class="btn btn-lg btn-d float-end"
                                 :disabled="isSubmitting">Sing In</button>
                     </form>
                 </div>
@@ -68,7 +68,7 @@ export default {
                 password: this.password,
             }).then(user => {
                 this.$router.push({ name: 'globalFeed' })
-                console.log('success registration', user)
+                console.log('success login', user)
             })
         }
     }
@@ -78,5 +78,14 @@ export default {
 <style scoped>
     .form-group {
         margin-bottom: 1rem;
+    }
+
+    .m-color{
+        color: #7f4ecd;
+     }
+
+    .btn-d{
+        background: #7f4ecd;
+        color: white;
     }
 </style>
