@@ -2,12 +2,16 @@
 
 namespace App\Models;
 
+use App\Http\Filters\QueryFilter;
+use EloquentFilter\Filterable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
     use HasFactory;
+    use Filterable;
 
     protected $table = 'posts';
     protected $guarded = false;
@@ -27,5 +31,10 @@ class Post extends Model
     public function likes()
     {
         return $this->belongsToMany(User::class, 'post_likes', 'post_id', 'user_id');
+    }
+
+    public function scopeHasTag(Builder $builder, QueryFilter $filter)
+    {
+        return $filter->apply($builder);
     }
 }

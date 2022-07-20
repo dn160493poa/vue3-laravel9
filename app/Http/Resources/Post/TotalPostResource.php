@@ -17,7 +17,7 @@ class TotalPostResource extends JsonResource
         return [
             'posts' => $this->collection,
             'total' => count($this->collection),
-            'popularTags' => ['welcome', 'implementations', 'introduction', 'codebaseShow']
+            'popularTags' => ['Crypto', 'Bitcoin', 'BlockChaine', 'ADA']
         ];
     }
 }
